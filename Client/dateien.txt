@@ -1,0 +1,9 @@
+In diesem Ordner müssen sich folgende Dateien mit folgender Funktion befinden:
+- run.py, startet das GUI und auf Befehl die in den anderen Dateien enthaltenen Abläufe
+- ksocket.py, verbindet die Fernsteuerung mit dem Socket-Server und sendet/empfängt Befehle und Daten
+- radar.py, enthält die Pygame-Anwendung, die das Radar darstellen soll
+- gui.py, enthält die TkInter-Anwendung für die Steuerelemente
+- gmap.py, enthält das Skript zum Erstellen und Aktualisieren der Leaflet-Karte
+- cef.py, enthält den eingebetteten Chromium-Browser, der die Leaflet-Karte darstellt
+- cam.py, enthält die Optionen für die Kamera, also Stream, Foto und Video
+- map.html, enthält die Leaflet-Karte, die cef darstellen soll
