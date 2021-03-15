@@ -1,0 +1,7 @@
+In diesem Ordner müssen sich folgende Dateien mit folgender Funktion befinden:
+- csocket.py, enthält den Socket-Server, der auf Verbindungen vom Client wartet und Kommandos aufnimmt
+- run.py, ist die Hauptsteuerung, die die Funktionen aus den anderen Dateien abruft und startet
+- servo.py, steuert die Servomotoren auf Befehl an
+- edev.py, steuert Lampen, Motoren, etc. auf Befehl an
+- pos.py, steuert die I²C-Geräte an: GPS-Modul und Kompass-Lagesensor
+- pcalc.py, berechnet die Rückfahrtautomatik und Autokorrektur der Fahrtrichtung und gibt sie an run.py weiter
