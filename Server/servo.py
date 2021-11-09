@@ -6,7 +6,6 @@ s1 = 29 #lenk
 s2 = 38 #cam x
 s3 = 40 #cam x
 #GPIO  set up
-GPIO.cleanup()
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(s1, GPIO.OUT)
