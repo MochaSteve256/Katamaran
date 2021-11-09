@@ -1,16 +1,17 @@
 #imports
 from time import sleep
 import RPi.GPIO as GPIO
+#gpio pins of the servos
+s1 = 29 #lenk
+s2 = 38 #cam x
+s3 = 40 #cam x
 #GPIO  set up
 GPIO.cleanup()
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(29, GPIO.OUT)
-pwm=GPIO.PWM(29, 50)
-pwm.start(0)
-s1 = 29 #lenk
-s2 = 38 #cam x
-s3 = 40 #cam x
+GPIO.setup(s1, GPIO.OUT)
+GPIO.setup(s2, GPIO.OUT)
+GPIO.setup(s3, GPIO.OUT)
 pwm=GPIO.PWM(s1, 50)
 pwm1=GPIO.PWM(s2, 50)
 pwm2=GPIO.PWM(s3, 50)
