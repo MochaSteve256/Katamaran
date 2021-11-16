@@ -38,7 +38,7 @@ def mosc(m, s):
         gp.output(mo, True)
     elif not m:
         gp.output(mo, False)
-    else:
+    if 0 < m < 101:
         running = True
         while running:
             gp.output(mo, True)
