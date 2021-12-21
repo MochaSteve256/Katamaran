@@ -10,8 +10,8 @@ TCP_IP = '172.20.10.6'                                  #
 TCP_PORT = 5000                                         #
 BUFFER_SIZE = 1024                                      # Socket-Objekt
 running = True                                          #
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)   #
-s.connect((TCP_IP, TCP_PORT))                           #
+#s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)   #
+#s.connect((TCP_IP, TCP_PORT))                           #
 connected = True
 w, h = 400, 400
 a = 0

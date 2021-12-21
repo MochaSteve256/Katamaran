@@ -2,6 +2,7 @@ import sys
 import servo
 #loop
 while True:
+    ser = input("r, x, y?: ")
     x = input(">>> ")#get input
     if x == "exit":
         sys.exit()
@@ -9,7 +10,12 @@ while True:
         try:
             x = int(x)#convert input str to int
             if 101 > x > -101:
-                servo.setrudder(x + 87)#set angle  to input  value
+                if ser == "r":
+                    servo.setrudder(x + 87)#add input value to current angle
+                elif ser == "x":
+                    servo.setcamx(x + 87)#set current angle to input value
+                elif ser == "y":
+                    servo.setcamy(x + 87)#set current angle to input value
             else:
                 print("invalid number")
         except Exception as e:

@@ -4,7 +4,7 @@ import RPi.GPIO as GPIO
 #gpio pins of the servos
 s1 = 29 #lenk
 s2 = 38 #cam x
-s3 = 40 #cam x
+s3 = 40 #cam y
 #GPIO  set up
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
