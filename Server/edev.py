@@ -1,6 +1,7 @@
 import RPi.GPIO as gp
 import csocket
 import time
+import threading
 # Pin-Nummern für Geräte einstellen
 ba = 33 # Backboard
 st = 35 # Steuerboard
@@ -15,6 +16,12 @@ ca = 12 # Radar-Kalibrierung
 gp.setmode(gp.BOARD)
 gp.setup((ba, st, fr, sc, re, mo), gp.OUT)
 gp.setup((ec, sh), gp.IN)
+def moop(running, speed):
+    while running:
+        gp.output(mo, True)
+        time.sleep(1 / 100)
+        gp.output(mo, False)
+        time.sleep((1 / 100) * speed)
 def bastfr(b, s, f):
     if b:
         gp.output(ba, True)
@@ -36,15 +43,12 @@ def mosc(m, s):
         gp.output(sc, False)
     if m:
         gp.output(mo, True)
+        moop(False, m)
     elif not m:
         gp.output(mo, False)
+        moop(False, m)
     if 0 < m < 101:
-        running = True
-        while running:
-            gp.output(mo, True)
-            time.sleep(1 / 100)
-            gp.output(mo, False)
-            time.sleep((1 / 100) * m)
+        moop(True, m)
 def ready(r):
     if r:
         gp.output(re, True)
