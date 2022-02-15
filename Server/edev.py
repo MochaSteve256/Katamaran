@@ -16,39 +16,47 @@ ca = 12 # Radar-Kalibrierung
 gp.setmode(gp.BOARD)
 gp.setup((ba, st, fr, sc, re, mo), gp.OUT)
 gp.setup((ec, sh), gp.IN)
-def moop(running, speed):
-    while running:
-        gp.output(mo, True)
-        time.sleep(1 / 100)
-        gp.output(mo, False)
-        time.sleep((1 / 100) * speed)
+running = False
+speed = 0
+def moop():
+    global running
+    global speed
+    while 1:
+        while running:
+            gp.output(mo, True)
+            time.sleep(1 / 100)
+            gp.output(mo, False)
+            time.sleep((1 / 100) * speed)
+t = threading.Thread(target=moop)
+t.start()
 def bastfr(b, s, f):
-    if b:
+    if b == "on":
         gp.output(ba, True)
-    if not b:
+    if b == "off":
         gp.output(ba, False)
-    if s:
+    if s == "on":
         gp.output(st, True)
-    if not s:
+    if s == "off":
         gp.output(st, False)
-    if f:
+    if f == "on":
         gp.output(fr, True)
-    if not f:
+    if f == "off":
         gp.output(fr, False)
 def mosc(m, s):
-    running = False
-    if s:
+    if s == "on":
         gp.output(sc, True)
-    if not s:
+    if s == "off":
         gp.output(sc, False)
-    if m:
+    if m == "on":
         gp.output(mo, True)
-        moop(False, m)
-    elif not m:
+        running = False
+    elif m == "off":
         gp.output(mo, False)
-        moop(False, m)
-    if 0 < m < 101:
-        moop(True, m)
+        running = False
+    else:
+        if 0 < int(m) < 101:
+            running = True
+            speed = int(m)
 def ready(r):
     if r:
         gp.output(re, True)
