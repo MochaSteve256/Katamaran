@@ -1,3 +1,4 @@
+from asyncio.proactor_events import constants
 import RPi.GPIO as gp
 import csocket
 import time
@@ -8,6 +9,7 @@ st = 35 # Steuerboard
 fr = 37 # Front
 sc = 36 # Scheinwerfer
 re = 32 # Ready-LED
+co = 36 # Connection-LED
 mo = 31 # Motor (Antrieb)
 tr = 13 # Trigger (Ultra)
 ec = 15 # Echo (Ultra)
@@ -18,6 +20,7 @@ gp.setup((ba, st, fr, sc, re, mo), gp.OUT)
 gp.setup((ec, sh), gp.IN)
 running = False
 speed = 0
+constatus = 0
 def moop():
     global running
     global speed
@@ -26,10 +29,23 @@ def moop():
             gp.output(mo, True)
             time.sleep(1 / 100)
             gp.output(mo, False)
-            time.sleep((1 / 100) * speed)
+            time.sleep(1 / speed)
+def conled():
+    global constatus
+    while 1:
+        if constatus == 0:
+            gp.output(co, True)
+            time.sleep(0.1)
+            gp.output(co, False)
+            time.sleep(2)
+        if constatus == 1:
+            gp.output(co, True)
 t = threading.Thread(target=moop)
 t.start()
-def bastfr(b, s, f):
+th = threading.Thread(target=conled)
+th.start()
+def bastfrreco(b, s, f, r, c):
+    global constatus
     if b == "on":
         gp.output(ba, True)
     if b == "off":
@@ -42,6 +58,14 @@ def bastfr(b, s, f):
         gp.output(fr, True)
     if f == "off":
         gp.output(fr, False)
+    if r == "on":
+        gp.output(re, True)
+    if r == "off":
+        gp.output(re, False)
+    if c == "on":
+        constatus = 1
+    if c == "off":
+        constatus = 0
 def mosc(m, s):
     if s == "on":
         gp.output(sc, True)
@@ -57,11 +81,6 @@ def mosc(m, s):
         if 0 < int(m) < 101:
             running = True
             speed = int(m)
-def ready(r):
-    if r:
-        gp.output(re, True)
-    if not r:
-        gp.output(re, False)
 def ultra():
     for i in range(2):
         global a
