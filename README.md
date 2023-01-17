@@ -10,5 +10,6 @@ Motor (vielleicht zu stark):
 https://www.conrad.de/de/p/reely-mt550-schiffsmodell-brushed-elektromotoren-396208.html
 Alt. Antrieb (wahrscheinlich zu schwach):
 https://www.mhm-modellbau.de/part-AEN-700503.php
+https://www.mhm-modellbau.de/part-AEN-700502.php
 Kanbanboard:
 https://cryptpad.fr/kanban/#/2/kanban/edit/eQvar-kerjf7gea3+LaI7wWY/
