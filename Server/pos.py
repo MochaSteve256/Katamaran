@@ -9,15 +9,15 @@ def get_gyro():
     return m
 def get_loc():
     global gps
-    port="/dev/ttyAMA0"
-    ser=serial.Serial(port, baudrate=9600, timeout=0.5)
+    port = "/dev/ttyAMA0"
+    ser = serial.Serial(port, baudrate=9600, timeout=0.5)
     dataout = pynmea2.NMEAStreamReader()
-    newdata=ser.readline()
+    newdata = ser.readline()
     if newdata[0:6] == "$GPRMC":
-        newmsg=pynmea2.parse(newdata)
-        lat=newmsg.latitude
-        lng=newmsg.longitude
-        alt=newmsg.altidude
-        spd=newmsg.spd_over_grnd
+        newmsg = pynmea2.parse(newdata)
+        lat = newmsg.latitude
+        lng = newmsg.longitude
+        alt = newmsg.altidude
+        spd = newmsg.spd_over_grnd
         gps = [str(lat), str(lng), str(alt), str(spd)]
     return gps
