@@ -7,7 +7,7 @@ import threading
 ba = 33 # Backboard
 st = 35 # Steuerboard
 fr = 37 # Front
-sc = 36 # Scheinwerfer
+sc = 3 # Scheinwerfer
 re = 32 # Ready-LED
 co = 36 # Connection-LED
 mo = 31 # Motor (Antrieb)
@@ -16,7 +16,7 @@ ec = 15 # Echo (Ultra)
 sh = 11 # Shutdown-Knopf
 ca = 12 # Radar-Kalibrierung
 gp.setmode(gp.BOARD)
-gp.setup((ba, st, fr, sc, re, mo), gp.OUT)
+gp.setup((ba, st, fr, sc, re, mo, co), gp.OUT)
 gp.setup((ec, sh), gp.IN)
 running = False
 speed = 0
