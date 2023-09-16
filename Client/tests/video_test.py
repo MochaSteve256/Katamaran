@@ -3,7 +3,7 @@ from kivy.uix.videoplayer import VideoPlayer
 
 class VideoApp(App):
     def build(self):
-        video_url = "tcp://<your_ip_address>:<port_number>"
+        video_url = "file:///C:/Users/Adrian/Videos/MemeClips/Tokyo Drift.mp4"
         video = VideoPlayer(source=video_url, state='play')
         return video
 
