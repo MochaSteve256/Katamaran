@@ -38,3 +38,9 @@ def setcamy(angle):
     sleep(1)
     GPIO.output(s3, False)
     pwm2.ChangeDutyCycle(0)
+def setrudderraw(duty):
+    GPIO.output(s1, True)
+    pwm.ChangeDutyCycle(duty)
+    sleep(1)
+    GPIO.output(s1, False)
+    pwm.ChangeDutyCycle(0)

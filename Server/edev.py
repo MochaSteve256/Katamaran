@@ -12,7 +12,7 @@ re = 32 # Ready-LED
 co = 36 # Connection-LED
 mo = 31 # Motor (Antrieb)
 tr = 13 # Trigger (Ultra)
-ec = 15 # Echo (Ultra)
+ec = 15 # Echo (Ultra)bastfrreco
 sh = 11 # Shutdown-Knopf
 ca = 12 # Radar-Kalibrierung
 gp.setmode(gp.BOARD)
@@ -40,6 +40,9 @@ def conled():
             time.sleep(2)
         if constatus == 1:
             gp.output(co, True)
+            time.sleep(0.001)
+            gp.output(co, False)
+            time.sleep(0.002)
 t = threading.Thread(target=moop)
 t.start()
 th = threading.Thread(target=conled)
