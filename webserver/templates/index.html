@@ -10,7 +10,6 @@
         <ul>
             <li><a href="/">Index</a></li>
             <li><a href="/video">Camera</a></li>
-            <!-- Add more menu items as needed -->
         </ul>
     </nav>
 </head>
@@ -33,5 +32,48 @@
             }, 50);
         });
     </script>
+    <div id="gamepad-info"></div>
+    <script>
+        window.addEventListener("gamepadconnected", function(e) {
+          // A gamepad has been connected
+          console.log("Gamepad connected");
+        });
+      
+        window.addEventListener("gamepaddisconnected", function(e) {
+          // A gamepad has been disconnected
+          console.log("Gamepad disconnected");
+        });
+      
+        function updateGamepad() {
+          // Check for connected gamepads
+          var gamepads = navigator.getGamepads();
+      
+          // Loop through each gamepad
+          for (var i = 0; i < gamepads.length; i++) {
+            var gamepad = gamepads[i];
+      
+            // Check if the gamepad is not null
+            if (gamepad) {
+                
+                // Log button and axis values
+              gamepadInfoElement = document.getElementById("gamepad-info");
+                gamepadInfoElement.innerHTML = `
+                  <p>Gamepad connected:</p>
+                  <p>ID: ${gamepad.id}</p>
+                  <p>Index: ${gamepad.index}</p>
+                  <p>Mapping: ${gamepad.mapping}</p>
+                  <p>Buttons: ${JSON.stringify(gamepad.buttons)}</p>
+                  <p>Axes: ${JSON.stringify(gamepad.axes)}</p>
+                `;
+            }
+          }
+      
+          // Schedule the next update
+          requestAnimationFrame(updateGamepad);
+        }
+      
+        // Start updating the gamepad state
+        updateGamepad();
+      </script>
 </body>
 </html>
