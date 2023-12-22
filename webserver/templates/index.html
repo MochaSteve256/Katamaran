@@ -3,77 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joystick Example</title>
+    <title>Katamaran-Steuerung</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
-    <script src="joy.js"></script>
-    <nav>
-        <ul>
-            <li><a href="/">Index</a></li>
-            <li><a href="/video">Camera</a></li>
-        </ul>
-    </nav>
+    <script src="static/js/joy.js"></script>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <h1>Joystick Example</h1>
-    <div id="joyDiv" style="width:200px;height:200px;margin-bottom:20px;"></div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var socket = io.connect('http://' + document.domain + ':' + location.port);
-
-            // Initialize JoyStick object in the DIV 'joyDiv'
-            var joy = new JoyStick('joyDiv', {}, function (stickData) {
-                // Send joystick data to the server
-                socket.emit('joystick_data', stickData);
-            });
-
-            // Optional: If you want to update server every 50 milliseconds
-            setInterval(function () {
-                socket.emit('joystick_data', joy.GetX()); // Adjust as needed
-            }, 50);
-        });
-    </script>
-    <div id="gamepad-info"></div>
-    <script>
-        window.addEventListener("gamepadconnected", function(e) {
-          // A gamepad has been connected
-          console.log("Gamepad connected");
-        });
-      
-        window.addEventListener("gamepaddisconnected", function(e) {
-          // A gamepad has been disconnected
-          console.log("Gamepad disconnected");
-        });
-      
-        function updateGamepad() {
-          // Check for connected gamepads
-          var gamepads = navigator.getGamepads();
-      
-          // Loop through each gamepad
-          for (var i = 0; i < gamepads.length; i++) {
-            var gamepad = gamepads[i];
-      
-            // Check if the gamepad is not null
-            if (gamepad) {
-                
-                // Log button and axis values
-              gamepadInfoElement = document.getElementById("gamepad-info");
-                gamepadInfoElement.innerHTML = `
-                  <p>Gamepad connected:</p>
-                  <p>ID: ${gamepad.id}</p>
-                  <p>Index: ${gamepad.index}</p>
-                  <p>Mapping: ${gamepad.mapping}</p>
-                  <p>Buttons: ${JSON.stringify(gamepad.buttons)}</p>
-                  <p>Axes: ${JSON.stringify(gamepad.axes)}</p>
-                `;
-            }
-          }
-      
-          // Schedule the next update
-          requestAnimationFrame(updateGamepad);
-        }
-      
-        // Start updating the gamepad state
-        updateGamepad();
-      </script>
+    <h1>Katamaran</h1>
+    <div class="img-container">
+      <img src="{{ url_for('video_feed') }}">
+      <div id="joyDiv"></div>
+    </div>
+    <script type="text/javascript" src="static/js/main.js"></script>
+    <script src="static/js/Controller.min.js"></script>
+    <script src="static/js/Controller.layouts.min.js"></script>
 </body>
 </html>

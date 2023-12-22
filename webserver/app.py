@@ -9,17 +9,10 @@ socketio = SocketIO(app)
 def index():
     return render_template('index.html')
 
-@app.route('/joy.js')
-def joy():
-    return render_template('joy.js')
-
 @socketio.on('joystick_data')
 def handle_joystick(data):
     print("Received Joystick Data:", data)
 
-@app.route('/video')
-def video():
-    return render_template('camerastream.html')
 def gen():
     """Video streaming generator function."""
     vs = cv2.VideoCapture(0)
@@ -43,4 +36,4 @@ def navbar():
     return render_template('navbar.html')
 
 if __name__ == '__main__':
-    socketio.run(app, use_reloader=True, log_output=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)

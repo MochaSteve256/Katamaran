@@ -1,22 +1,9 @@
 body{
-background-color:#70706F;
+background-color:#1f2544;
 }
-
 h1{
-    color:#3AAA35;
+    color:#0dff00;
     text-align:center;
-}
-
-
-.img-container{
-      width:50%;
-    border: 3px solid #3AAA35;
-    border-radius: 6px;
-    overflow: hidden; 
-    text-align:center;
-    margin-left: auto;
-    margin-right: auto;
-    padding:20px;
 }
 img{
   width:100%;
@@ -26,4 +13,25 @@ footer{
   padding: 10px;
   text-align: center;
   color: white;
+}
+.img-container{
+    position: relative;
+    width: 50%;
+    height: auto;
+    border: 3px solid #b41484;
+    border-radius: 6px;
+    overflow: hidden; 
+    text-align:center;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px;
+    z-index: 1;
+}
+#joyDiv {
+  top : 60%;
+  left : 0%;
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  z-index: 2;
 }
