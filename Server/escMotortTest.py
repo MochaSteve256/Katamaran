@@ -23,7 +23,7 @@ print("calibrate OR manual OR control OR arm OR stop")
 def manual_drive(): #You will use this function to program your ESC if required
     print("You have selected manual option so give a value between 0 and you max value")
     while True:
-        inp = raw_input()
+        inp = input()
         if inp == "stop":
             stop()
             break
