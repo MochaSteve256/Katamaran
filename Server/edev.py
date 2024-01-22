@@ -1,6 +1,5 @@
 from asyncio.proactor_events import constants
 import RPi.GPIO as gp
-import csocket
 import time
 import threading
 # Pin-Nummern für Geräte einstellen
@@ -10,26 +9,15 @@ fr = 37 # Front
 sc = 3 # Scheinwerfer
 re = 32 # Ready-LED
 co = 36 # Connection-LED
-mo = 31 # Motor (Antrieb)
 tr = 13 # Trigger (Ultra)
 ec = 15 # Echo (Ultra)bastfrreco
 sh = 11 # Shutdown-Knopf
 ca = 12 # Radar-Kalibrierung
 gp.setmode(gp.BOARD)
-gp.setup((ba, st, fr, sc, re, mo, co), gp.OUT)
+gp.setup((ba, st, fr, sc, re, co), gp.OUT)
 gp.setup((ec, sh), gp.IN)
 running = False
-speed = 0
 constatus = 0
-def moop():
-    global running
-    global speed
-    while 1:
-        while running:
-            gp.output(mo, True)
-            time.sleep(1 / 100)
-            gp.output(mo, False)
-            time.sleep(1 / speed)
 def conled():
     global constatus
     while 1:
@@ -43,11 +31,9 @@ def conled():
             time.sleep(0.001)
             gp.output(co, False)
             time.sleep(0.002)
-t = threading.Thread(target=moop)
-t.start()
 th = threading.Thread(target=conled)
 th.start()
-def bastfrreco(b, s, f, r, c):
+def bastfrreco(b, s, f, r, c, sc):
     global constatus
     if b == "on":
         gp.output(ba, True)
@@ -69,21 +55,11 @@ def bastfrreco(b, s, f, r, c):
         constatus = 1
     if c == "off":
         constatus = 0
-def mosc(m, s):
-    if s == "on":
+    if sc == "on":
         gp.output(sc, True)
-    if s == "off":
+    if sc == "off":
         gp.output(sc, False)
-    if m == "on":
-        gp.output(mo, True)
-        running = False
-    elif m == "off":
-        gp.output(mo, False)
-        running = False
-    else:
-        if 0 < int(m) < 101:
-            running = True
-            speed = int(m)
+
 def ultra():
     for i in range(2):
         global a
@@ -104,4 +80,15 @@ def ultra():
 def cal():
     while gp.input(ca) == False:
         time.sleep(0.0001)
-    csocket.cal()
+
+if __name__ == "__main__":
+    while True:
+        sel = input("def: ")
+        if sel == "stuff":
+            ba = input("backbord_led: ")
+            st = input("steuerbord_led: ")
+            fr = input("front_led: ")
+            re = input("ready_led: ")
+            co = input("control_led: ")
+            sc = input("flashlight: ")
+            bastfrreco(ba, st, fr, re, co, sc)

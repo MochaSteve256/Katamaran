@@ -1,6 +1,6 @@
 In diesem Ordner müssen sich folgende Dateien mit folgender Funktion befinden:
-- csocket.py, enthält den Socket-Server, der auf Verbindungen vom Client wartet und Kommandos aufnimmt
-- run.py, ist die Hauptsteuerung, die die Funktionen aus den anderen Dateien abruft und startet
+- flask_server.py, kommuniziert mit dem Client
+- main.py, ist die Hauptsteuerung, die die Funktionen aus den anderen Dateien abruft und startet
 - servo.py, steuert die Servomotoren auf Befehl an
 - edev.py, steuert Lampen, Motoren, etc. auf Befehl an
 - pos.py, steuert die I²C- und SPI-Geräte an: GPS-Modul und Kompass-Lagesensor
