@@ -1,7 +1,7 @@
 import pigpio
 
 leftMotor = 4
-rightMotor = 14
+rightMotor = 17
 
 pi = pigpio.pi()
 pi.set_servo_pulsewidth(leftMotor, 1485)
