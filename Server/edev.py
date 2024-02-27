@@ -14,7 +14,7 @@ ec = 15 # Echo (Ultra)bastfrreco
 sh = 11 # Shutdown-Knopf
 ca = 12 # Radar-Kalibrierung
 gp.setmode(gp.BOARD)
-gp.setup((ba, st, fr, sc, re, co), gp.OUT)
+gp.setup((ba, st, fr, sc, re, co, tr), gp.OUT)
 gp.setup((ec, sh), gp.IN)
 running = False
 constatus = 0
@@ -62,12 +62,9 @@ def bastfrreco(b, s, f, r, c, sc):
 
 def ultra():
     for i in range(2):
-        global a
-        global b
-        global a1
-        global a2
         gp.output(tr, True)
         a = time.time()
+        b = time.time()
         gp.output(tr, False)
         while gp.input(ec) == False and ((b - a) / 2 ) * 343 < 5:
             b = time.time()
