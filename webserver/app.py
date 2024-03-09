@@ -14,7 +14,7 @@ def handle_joystick(data):
     print("Received Joystick Data:", data)
 
 def gen():
-    """Video streaming generator function."""
+    #Video streaming generator function.
     vs = cv2.VideoCapture(0)
     while True:
         ret,frame=vs.read()
@@ -28,7 +28,7 @@ def gen():
 
 @app.route('/video_feed')
 def video_feed():
-    """Video streaming route. Put this in the src attribute of an img tag."""
+    #Video streaming route. Put this in the src attribute of an img tag.
     return Response(gen(),mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/navbar.html')

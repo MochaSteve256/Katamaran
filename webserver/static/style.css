@@ -1,19 +1,19 @@
 body{
-background-color:#1f2544;
+    background-color:#1f2544;
 }
 h1{
     color:#0dff00;
     text-align:center;
 }
 footer{
-  background-color: #777;
-  padding: 10px;
-  text-align: center;
-  color: white;
+    background-color: #777;
+    padding: 10px;
+    text-align: center;
+    color: white;
 }
 .img-container{
     position: relative;
-    width: 50%;
+    width: 80%;
     height: auto;
     border: 3px solid #b41484;
     border-radius: 6px;
@@ -23,12 +23,4 @@ footer{
     margin-right: auto;
     padding: 5px;
     z-index: 1;
-}
-#joyDiv {
-  top : 18%;
-  left : 0%;
-  width: 200px;
-  height: 200px;
-  position: absolute;
-  z-index: 2;
 }

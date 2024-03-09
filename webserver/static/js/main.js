@@ -1,14 +1,14 @@
 document.addEventListener('DOMContentLoaded', function () {
-    var socket = io.connect('http://' + document.domain + ':' + location.port);
+    const socket = io.connect('http://' + document.domain + ':' + location.port);
+});
 
-    // Initialize JoyStick object in the DIV 'joyDiv'
-    var joy = new JoyStick('joyDiv', {}, function (stickData) {
-        // Send joystick data to the server
-        socket.emit('joystick_data', stickData);
-    });
+function shiz() {
+    
+}
 
-    // Optional: If you want to update server every 50 milliseconds
-    setInterval(function () {
-        socket.emit('joystick_data', joy.GetX()); // Adjust as needed
-    }, 50);
-})
+const listener = new GamepadListener();
+listener.start()
+
+listener.on("gamepad:axis", (event) => {
+    console.log(event);
+});
