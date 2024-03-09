@@ -21,3 +21,7 @@ def get_loc():
         spd = newmsg.spd_over_grnd
         gps = [str(lat), str(lng), str(alt), str(spd)]
     return gps
+
+if __name__ == '__main__':
+    while True:
+        print(get_gyro())
