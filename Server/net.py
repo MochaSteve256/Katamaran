@@ -46,6 +46,8 @@ def handle_slider_data(data):
         timer_y = threading.Timer(0.3, set_cam_y)
         timer_y.start()
 
+def run():
+    socketio.run(app, use_reloader=True, log_output=True, host='0.0.0.0', port=5000)
 
 if __name__ == '__main__':
-    socketio.run(app, use_reloader=True, log_output=True, host='0.0.0.0', port=5000)
+    run()
