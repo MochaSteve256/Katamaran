@@ -10,8 +10,7 @@ except:
     pass
 
 def run_frontend():
-    os.chdir("/home/pi/Katamaran/Server/Frontend")
-    os.system("npm run dev")
+    os.system("cd /home/pi/Katamaran/Server/Frontend && npm run dev")
 
 frontend_thread = threading.Thread(target=run_frontend)
 frontend_thread.start()
