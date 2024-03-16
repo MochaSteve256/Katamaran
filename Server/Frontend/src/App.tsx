@@ -105,7 +105,7 @@ function App() {
 
   const handleLightingChange = (_: ChangeEvent<HTMLInputElement>, newValue: boolean) => {
     setLighting(newValue);
-    socket.emit('lighting', { on :newValue });
+    socket.emit('lights', { on :newValue });
   };
 
   return (
