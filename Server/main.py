@@ -9,8 +9,11 @@ try:
 except:
     pass
 
-net_thread = threading.Thread(target=net.run)
-net_thread.start()
+def run_frontend():
+    os.chdir("/home/pi/Katamaran/Server/Frontend")
+    os.system("npm run dev")
 
-os.chdir("/home/pi/Katamaran/Server/Frontend")
-os.system("npm run dev")
+frontend_thread = threading.Thread(target=run_frontend)
+frontend_thread.start()
+
+net.run()
