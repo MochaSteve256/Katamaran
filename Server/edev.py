@@ -13,8 +13,8 @@ tr = 13 # Trigger (Ultra)
 ec = 15 # Echo (Ultra)bastfrreco
 sh = 11 # Shutdown-Knopf
 gp.setmode(gp.BOARD)
-gp.setup((ba, st, fr, sc, re, co, tr), gp.OUT)
-gp.setup((ec, sh), gp.IN)
+gp.setup((ba, st, fr, sc, re, co, tr), gp.OUT) # type: ignore
+gp.setup((ec, sh), gp.IN) # type: ignore
 running = False
 constatus = 0
 def conled():
@@ -32,34 +32,58 @@ def conled():
             time.sleep(0.002)
 th = threading.Thread(target=conled)
 th.start()
-def bastfrreco(b, s, f, r, c, sc):
-    global constatus
-    if b == "on":
+
+def backboard(on: bool):
+    if on:
         gp.output(ba, True)
-    if b == "off":
+    else:
         gp.output(ba, False)
-    if s == "on":
+
+def steuerboard(on: bool):
+    if on:
         gp.output(st, True)
-    if s == "off":
+    else:
         gp.output(st, False)
-    if f == "on":
+
+def front(on: bool):
+    if on:
         gp.output(fr, True)
-    if f == "off":
+    else:
         gp.output(fr, False)
-    if r == "on":
+
+def ready(on: bool):
+    if on:
         gp.output(re, True)
-    if r == "off":
+    else:
         gp.output(re, False)
-    if c == "on":
+
+def connection(on: bool):
+    if on:
         constatus = 1
-    if c == "off":
+    else:
         constatus = 0
-    if sc == "on":
+
+def scheinwerfer(on: bool):
+    if on:
         gp.output(sc, True)
-    if sc == "off":
+    else:
         gp.output(sc, False)
 
+
+
+def lights(on: bool):
+    if on:
+        backboard(True)
+        steuerboard(True)
+        front(True)
+    else:
+        backboard(False)
+        steuerboard(False)
+        front(False)
+
 def ultra():
+    a1 = 0
+    a2 = 0
     for i in range(2):
         gp.output(tr, True)
         a = time.time()
@@ -73,18 +97,8 @@ def ultra():
             a2 = ((b - a) / 2) * 343
     d = (a1 + a2) / 2
     return d
-def cal():
-    while gp.input(ca) == False:
-        time.sleep(0.0001)
 
 if __name__ == "__main__":
     while True:
-        sel = input("def: ")
-        if sel == "stuff":
-            ba = input("backbord_led: ")
-            st = input("steuerbord_led: ")
-            fr = input("front_led: ")
-            re = input("ready_led: ")
-            co = input("control_led: ")
-            sc = input("flashlight: ")
-            bastfrreco(ba, st, fr, re, co, sc)
+        print(ultra())
+        time.sleep(0.1)

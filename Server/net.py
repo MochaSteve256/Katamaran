@@ -3,6 +3,8 @@ from flask_socketio import SocketIO
 from flask_cors import CORS
 import threading
 
+import edev
+import motors
 import servo
 
 app = Flask(__name__)
@@ -30,7 +32,7 @@ def handle_connect():
     # emit current states
     #camera x and y int
     global x_value, y_value
-    socketio.emit('slider_data', {'x': x_value, 'y': y_value})
+    socketio.emit('slider_data', {'x': x_value - 90, 'y': y_value - 90})
     #spotlight bool
     #motor speeds int
 
@@ -43,8 +45,8 @@ def handle_connect():
 @socketio.on('slider_data')
 def handle_slider_data(data):
     global x_value, y_value, timer_x, timer_y
-    x = 0 - data.get('x') + 95
-    y = data.get('y') + 95
+    x = 0 - data.get('x') + 90
+    y = data.get('y') + 90
 
     if timer_x is not None:
         timer_x.cancel()
@@ -59,6 +61,14 @@ def handle_slider_data(data):
         y_value = y
         timer_y = threading.Timer(0.3, set_cam_y)
         timer_y.start()
+
+@socketio.on('spotlight')
+def handle_spotlight(data):
+    edev.scheinwerfer(data.get('on'))
+
+@socketio.on('lights')
+def handle_lights(data):
+    edev.lights(data.get('on'))
 
 def run():
     socketio.run(app, use_reloader=True, log_output=True, host='0.0.0.0', port=5000)

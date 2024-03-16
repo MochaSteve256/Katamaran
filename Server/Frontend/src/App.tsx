@@ -95,10 +95,17 @@ function App() {
   };
 
   const [spotlight, setSpotlight] = useState<boolean>(false);
-  
+
   const handleSpotlightChange = (_: ChangeEvent<HTMLInputElement>, newValue: boolean) => {
     setSpotlight(newValue);
-    socket.emit('spotlight', newValue);
+    socket.emit('spotlight', { on :newValue });
+  };
+
+  const [lighting, setLighting] = useState<boolean>(false);
+
+  const handleLightingChange = (_: ChangeEvent<HTMLInputElement>, newValue: boolean) => {
+    setLighting(newValue);
+    socket.emit('lighting', { on :newValue });
   };
 
   return (
@@ -127,6 +134,10 @@ function App() {
             <FormControlLabel
               control={<Switch sx={{ m: 1 }} checked={spotlight} onChange={handleSpotlightChange} />}
               label="Scheinwerfer"
+            />
+            <FormControlLabel
+              control={<Switch sx={{ m: 1 }} checked={lighting} onChange={handleLightingChange} />}
+              label="Beleuchtung"
             />
           </FormGroup>
         </Paper>
