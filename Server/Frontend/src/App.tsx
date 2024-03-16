@@ -20,10 +20,10 @@ function App() {
 
     return (
         <Container style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <Slider min={-190} max={190} track={false} value={yValue} onChange={handleYSliderChange} orientation='vertical' style={{ marginRight: '16px', height: '480px' }} />
+            <Slider min={-95} max={95} track={false} value={yValue} onChange={handleYSliderChange} orientation='vertical' style={{ marginRight: '16px', height: '480px' }} />
             <Container style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-                <iframe src="http://192.168.178.62:8000/stream.mjpg" width="640" height="480" style={{ border: 'none' }} />
-                <Slider min={-190} max={190} track={false} value={xValue} onChange={handleXSliderChange} style={{ width: '640px', marginTop: '16px' }} />
+                <iframe src="http://192.168.178.62:8000/stream.mjpg" width="640" height="480" style={{ border: 'none' }} loading="lazy" />
+                <Slider min={-95} max={95} track={false} value={xValue} onChange={handleXSliderChange} style={{ width: '640px', marginTop: '16px' }} />
             </Container>
         </Container>
     )
