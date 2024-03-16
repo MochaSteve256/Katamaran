@@ -25,6 +25,20 @@ def set_cam_y():
     servo.setcamy(y_value)
     timer_y = None
 
+@socketio.on('connect')
+def handle_connect():
+    # emit current states
+    #camera x and y int
+    global x_value, y_value
+    socketio.emit('slider_data', {'x': x_value, 'y': y_value})
+    #spotlight bool
+    #motor speeds int
+
+    # emit variable data
+    #ultrasonic distance float
+    #gps lat, lng, alt, spd float
+    #wifi strength int
+    #gyro x, y, z float
 
 @socketio.on('slider_data')
 def handle_slider_data(data):

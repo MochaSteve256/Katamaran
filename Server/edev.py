@@ -12,7 +12,6 @@ co = 36 # Connection-LED
 tr = 13 # Trigger (Ultra)
 ec = 15 # Echo (Ultra)bastfrreco
 sh = 11 # Shutdown-Knopf
-ca = 12 # Radar-Kalibrierung
 gp.setmode(gp.BOARD)
 gp.setup((ba, st, fr, sc, re, co, tr), gp.OUT)
 gp.setup((ec, sh), gp.IN)
