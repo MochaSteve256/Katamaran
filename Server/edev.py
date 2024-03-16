@@ -110,7 +110,6 @@ def ultra():
     return distance
 
 if __name__ == "__main__":
-    lights(True)
     while True:
         print(round(ultra(), 2), " cm             ", end="\r")
         time.sleep(0.1)
