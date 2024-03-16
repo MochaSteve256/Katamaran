@@ -6,7 +6,7 @@ import threading
 ba = 33 # Backboard
 st = 35 # Steuerboard
 fr = 37 # Front
-sc = 3 # Scheinwerfer
+sc = 8 # Scheinwerfer
 re = 32 # Ready-LED
 co = 36 # Connection-LED
 tr = 13 # Trigger (Ultra)
@@ -58,6 +58,7 @@ def ready(on: bool):
         gp.output(re, False)
 
 def connection(on: bool):
+    global constatus
     if on:
         constatus = 1
     else:
@@ -84,32 +85,32 @@ def lights(on: bool):
 def ultra():
     # set Trigger to HIGH
     gp.output(tr, True)
- 
+
     # set Trigger after 0.01ms to LOW
     time.sleep(0.00001)
     gp.output(tr, False)
- 
+
     StartTime = time.time()
     StopTime = time.time()
- 
+
     # save StartTime
     while gp.input(ec) == 0:
         StartTime = time.time()
- 
+
     # save time of arrival
     while gp.input(ec) == 1:
         StopTime = time.time()
- 
+
     # time difference between start and arrival
     TimeElapsed = StopTime - StartTime
     # multiply with the sonic speed (34300 cm/s)
     # and divide by 2, because there and back
     distance = (TimeElapsed * 34300) / 2
- 
+
     return distance
 
 if __name__ == "__main__":
     lights(True)
     while True:
-        print(ultra(), "cm", end="\r")
+        print(round(ultra(), 2), " cm             ", end="\r")
         time.sleep(0.1)
