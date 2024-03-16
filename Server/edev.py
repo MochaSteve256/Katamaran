@@ -82,23 +82,34 @@ def lights(on: bool):
         front(False)
 
 def ultra():
-    a1 = 0
-    a2 = 0
-    for i in range(2):
-        gp.output(tr, True)
-        a = time.time()
-        b = time.time()
-        gp.output(tr, False)
-        while gp.input(ec) == False and ((b - a) / 2 ) * 343 < 5:
-            b = time.time()
-        if i == 0:
-            a1 = ((b - a) / 2) * 343
-        if i == 1:
-            a2 = ((b - a) / 2) * 343
-    d = (a1 + a2) / 2
-    return d
+    # set Trigger to HIGH
+    gp.output(tr, True)
+ 
+    # set Trigger after 0.01ms to LOW
+    time.sleep(0.00001)
+    gp.output(tr, False)
+ 
+    StartTime = time.time()
+    StopTime = time.time()
+ 
+    # save StartTime
+    while gp.input(ec) == 0:
+        StartTime = time.time()
+ 
+    # save time of arrival
+    while gp.input(ec) == 1:
+        StopTime = time.time()
+ 
+    # time difference between start and arrival
+    TimeElapsed = StopTime - StartTime
+    # multiply with the sonic speed (34300 cm/s)
+    # and divide by 2, because there and back
+    distance = (TimeElapsed * 34300) / 2
+ 
+    return distance
 
 if __name__ == "__main__":
+    lights(True)
     while True:
-        print(ultra())
+        print(ultra(), "cm", end="\r")
         time.sleep(0.1)
