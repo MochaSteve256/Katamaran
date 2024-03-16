@@ -15,4 +15,4 @@ def handle_slider_data(data):
     servo.setcamy(y_value)
 
 if __name__ == '__main__':
-    socketio.run(app, use_reloader=True, log_output=True)
+    socketio.run(app, use_reloader=True, log_output=True, host='0.0.0.0', port=5000)

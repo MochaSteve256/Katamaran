@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Container, Paper, Typography, Slider, Switch } from '@mui/material';
 import io from 'socket.io-client';
 
-const socket = io('http://localhost:5000');  // Adjust the URL as per your Flask-SocketIO server
+const socket = io('http://192.168.178.62:5000');  // Adjust the URL as per your Flask-SocketIO server
 
 function App() {
     const [xValue, setXValue] = useState(0);
