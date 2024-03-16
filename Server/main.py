@@ -1,13 +1,12 @@
 import net
-import camera
 import threading
 import os
 
-cam_thread = threading.Thread(target=camera.run)
-try:
-    cam_thread.start()
-except:
-    pass
+def run_camera():
+    os.system("cd /home/pi/Katamaran/Server && python3 camera.py")
+
+camera_thread = threading.Thread(target=run_camera)
+camera_thread.start()
 
 def run_frontend():
     os.system("cd /home/pi/Katamaran/Server/Frontend && npm run dev")
