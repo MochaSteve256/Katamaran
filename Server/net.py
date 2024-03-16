@@ -12,8 +12,8 @@ y_value = 0
 
 @socketio.on('slider_data')
 def handle_slider_data(data):
-    x = data.get('x') + 95
-    y = 0 - data.get('y') + 95
+    x = 0 - data.get('x') + 95
+    y = data.get('y') + 95
     global x_value, y_value
     if x_value is None or y_value is None:
         return
