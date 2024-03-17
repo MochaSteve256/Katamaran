@@ -32,7 +32,7 @@ def handle_connect():
     # emit current states
     #camera x and y int
     global x_value, y_value
-    socketio.emit('slider_data', {'x': x_value - 90, 'y': y_value - 90})
+    socketio.emit('slider_data', {'x': 0 - x_value - 90, 'y': y_value - 90})
     #spotlight bool
     #motor speeds int
 
@@ -69,6 +69,11 @@ def handle_spotlight(data):
 @socketio.on('lights')
 def handle_lights(data):
     edev.lights(data.get('on'))
+
+@socketio.on('motor_data')
+def handle_motor_data(data):
+    motors.backbord_speed(data.get('b'))
+    motors.steuerbord_speed(data.get('s'))
 
 def run():
     socketio.run(app, use_reloader=True, log_output=True, host='0.0.0.0', port=5000)

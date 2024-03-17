@@ -1,7 +1,8 @@
 import { useState, useEffect, ChangeEvent } from 'react';
-import { Container, Box, Paper, Typography, Slider, Switch, AppBar, Toolbar, FormGroup, FormControlLabel } from '@mui/material';
+import { Container, Box, Paper, Typography, Slider, Switch, AppBar, Toolbar, FormGroup, FormControlLabel, LinearProgress } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import Gamepad from 'react-gamepad';
 import CssBaseline from '@mui/material/CssBaseline';
 import io from 'socket.io-client';
 
@@ -94,6 +95,27 @@ function App() {
     socket.emit('slider_data', { x: xValue, y: newValue });
   };
 
+  const [lMotor, setLMotor] = useState<number>(0);
+  const [rMotor, setRMotor] = useState<number>(0);
+
+  useEffect(() => {
+    socket.on('motor_data', (data) => {
+      setLMotor(data.lMotor);
+      setRMotor(data.rMotor);
+    });
+  }, []);
+  
+  const handleLMotorChange = (_: Event, newValue: number | number[]) => {
+    setLMotor(Array.isArray(newValue) ? newValue[0] : newValue);
+    socket.emit('motor_data', { b: newValue, s: rMotor });
+  };
+
+  const handleRMotorChange = (_: Event, newValue: number | number[]) => {
+    setRMotor(Array.isArray(newValue) ? newValue[0] : newValue);
+    socket.emit('motor_data', { b: lMotor, s: newValue });
+  };
+
+
   const [spotlight, setSpotlight] = useState<boolean>(false);
 
   const handleSpotlightChange = (_: ChangeEvent<HTMLInputElement>, newValue: boolean) => {
@@ -108,9 +130,64 @@ function App() {
     socket.emit('lights', { on :newValue });
   };
 
+  //gamepad code
+  const [leftStickX, setLeftStickX] = useState<number>(0);
+  const [leftStickY, setLeftStickY] = useState<number>(0);
+  const [rightStickX, setRightStickX] = useState<number>(0);
+  const [rightStickY, setRightStickY] = useState<number>(0);
+  const [leftTrigger, setLeftTrigger] = useState<number>(0);
+  const [rightTrigger, setRightTrigger] = useState<number>(0);
+
+  const MAX_SPEED = 500;
+
+  type Button = string;
+  type Axis = string;
+  const [gamepad, setGamepad] = useState<Gamepad | null>(null);
+  const handleConnect = (gamepadIndex: number) => {
+    setGamepad(gamepadIndex !== -1 ? new Gamepad(gamepadIndex) : null);
+    console.log('Gamepad connected:', gamepadIndex);
+    // Handle gamepad connection
+  };
+
+  const handleButtonChange = (buttonName: Button, pressed: boolean) => {
+    console.log(buttonName, pressed);
+    // Handle button change
+  };
+
+  const handleAxisChange = (axisName: Axis, value: number, previousValue: number) => {
+    console.log(axisName, value, previousValue);
+    // Handle axis change
+    if (axisName === 'LeftStickX' || axisName === 'LeftStickY') {
+      // Calculate combined speed from both X and Y axes
+
+      const xSpeed = leftStickX * MAX_SPEED;
+      const ySpeed = leftStickY * MAX_SPEED;
+  
+      // Calculate left and right motor speeds based on combined X and Y axes
+      setLMotor(ySpeed + xSpeed);
+      setRMotor(ySpeed - xSpeed);
+    }
+    if (axisName === 'LeftStickX') {
+      setLeftStickX(value);
+    } else if (axisName === 'LeftStickY') {
+      setLeftStickY(value);
+    } else if (axisName === 'RightStickX') {
+      setRightStickX(value);
+    } else if (axisName === 'RightStickY') {
+      setRightStickY(value);
+    } else if (axisName === 'LeftTrigger') {
+      setLeftTrigger(value);
+    } else if (axisName === 'RightTrigger') {
+      setRightTrigger(value);
+    }
+  };
+  
   return (
     <ThemeProvider theme={theme(darkMode)}>
       <CssBaseline />
+      <Gamepad onConnect = { handleConnect } onButtonChange = { handleButtonChange } onAxisChange = { handleAxisChange }>
+        <Paper/>
+      </Gamepad>
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -127,18 +204,23 @@ function App() {
               <iframe src="http://192.168.178.62:8000/stream.mjpg" width="640px" height="480px" style={{ border: 'none', marginRight: "20"}} loading="lazy" />
               <Slider min={-90} max={90} track={false} valueLabelDisplay='auto' value={xValue} onChange={handleXSliderChange} style={{ width: '640px', marginTop: '16px' }} />
             </Container>
+            <LinearProgress color="secondary" style={{ marginTop: '16px', marginLeft: '16px', width: '640px' }} variant="determinate" value={xValue} />
           </Container>
         </Paper >
+        <Paper elevation={10} square sx={{ maxWidth: '250px', margin: '0 auto', p: 4 }}>
+          <Slider min={0 - MAX_SPEED} max={MAX_SPEED} track={false} valueLabelDisplay='auto' value={lMotor} onChange={handleLMotorChange} orientation='vertical' />
+          <Slider min={0 - MAX_SPEED} max={MAX_SPEED} track={false} valueLabelDisplay='auto' value={rMotor} onChange={handleRMotorChange} orientation='vertical'/>
+        </Paper>
         <Paper elevation={10} square sx={{ maxWidth: '250px', margin: '0 auto', p: 4 }}>
           <FormGroup>
             <FormControlLabel
               control={<Switch sx={{ m: 1 }} checked={spotlight} onChange={handleSpotlightChange} />}
               label="Scheinwerfer"
-            />
+              />
             <FormControlLabel
               control={<Switch sx={{ m: 1 }} checked={lighting} onChange={handleLightingChange} />}
               label="Beleuchtung"
-            />
+              />
           </FormGroup>
         </Paper>
       </Box>
