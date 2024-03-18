@@ -1,12 +1,14 @@
 import subprocess
 import os
+import threading
 try:
     os.system("sudo pigpiod")
 except:
     pass
 try:
     import net
-    net.run()
+    net_thread = threading.Thread(target=net.run)
+    net_thread.run()
 except:
     pass
 try:
