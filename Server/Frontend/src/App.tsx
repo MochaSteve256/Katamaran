@@ -79,7 +79,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 
 const theme = (darkMode: boolean) => (darkMode ? darkTheme : lightTheme);
 
-const socket = io("http://" + window.location.hostname + ":5000");
+const socket = io("http://katamaran.local:5000");
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);
@@ -119,12 +119,10 @@ function App() {
 
   const handleLMotorChange = (_: Event, newValue: number | number[]) => {
     setLMotor(Array.isArray(newValue) ? newValue[0] : newValue);
-    socket.emit("motor_data", { b: newValue, s: rMotor });
   };
 
   const handleRMotorChange = (_: Event, newValue: number | number[]) => {
     setRMotor(Array.isArray(newValue) ? newValue[0] : newValue);
-    socket.emit("motor_data", { b: lMotor, s: newValue });
   };
 
   const [spotlight, setSpotlight] = useState<boolean>(false);
@@ -180,28 +178,40 @@ function App() {
     // Handle axis change
     if (axisName === "LeftStickX" || axisName === "LeftStickY") {
       // Calculate combined speed from both X and Y axes
-
       const xSpeed = leftStickX * MAX_SPEED;
       const ySpeed = leftStickY * MAX_SPEED;
 
       // Calculate left and right motor speeds based on combined X and Y axes
       setLMotor(ySpeed + xSpeed);
       setRMotor(ySpeed - xSpeed);
-    }
-    if (axisName === "LeftStickX") {
-      setLeftStickX(value);
-    } else if (axisName === "LeftStickY") {
-      setLeftStickY(value);
-    } else if (axisName === "RightStickX") {
-      setRightStickX(value);
-    } else if (axisName === "RightStickY") {
-      setRightStickY(value);
     } else if (axisName === "LeftTrigger") {
-      setLeftTrigger(value);
+      // Adjust LMotor speed based on LeftTrigger
+      const lMotorSpeed = value * MAX_SPEED;
+      setLMotor(lMotorSpeed);
     } else if (axisName === "RightTrigger") {
-      setRightTrigger(value);
+      // Adjust RMotor speed based on RightTrigger
+      const rMotorSpeed = value * MAX_SPEED;
+      setRMotor(rMotorSpeed);
+    } else {
+      // Handle other axis changes
+      if (axisName === "LeftStickX") {
+        setLeftStickX(value);
+      } else if (axisName === "LeftStickY") {
+        setLeftStickY(value);
+      } else if (axisName === "RightStickX") {
+        setRightStickX(value);
+      } else if (axisName === "RightStickY") {
+        setRightStickY(value);
+      }
     }
   };
+
+  useEffect(() => {
+    socket.emit("motor_data", { b: lMotor, s: rMotor });
+  }, [lMotor]);
+  useEffect(() => {
+    socket.emit("motor_data", { b: lMotor, s: rMotor });
+  }, [rMotor]);
 
   return (
     <ThemeProvider theme={theme(darkMode)}>
@@ -244,7 +254,7 @@ function App() {
               style={{ display: "flex", flexDirection: "column", flex: 1 }}
             >
               <iframe
-                src={`http://${window.location.hostname}:8000/stream.mjpg`}
+                src="http://katamaran.local:8000/stream.mjpg"
                 width="640px"
                 height="480px"
                 style={{ border: "none", marginRight: "20px" }}
