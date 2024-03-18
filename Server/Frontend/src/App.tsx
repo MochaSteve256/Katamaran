@@ -1,20 +1,32 @@
-import { useState, useEffect, ChangeEvent } from 'react';
-import { Container, Box, Paper, Typography, Slider, Switch, AppBar, Toolbar, FormGroup, FormControlLabel, LinearProgress } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import Gamepad from 'react-gamepad';
-import CssBaseline from '@mui/material/CssBaseline';
-import io from 'socket.io-client';
+import React, { useState, useEffect, ChangeEvent } from "react";
+import {
+  Container,
+  Box,
+  Paper,
+  Typography,
+  Slider,
+  Switch,
+  AppBar,
+  Toolbar,
+  FormGroup,
+  FormControlLabel,
+  LinearProgress,
+} from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { ThemeProvider, createTheme } from "@mui/material/styles"; // Move this line up
+import Gamepad from "react-gamepad";
+import CssBaseline from "@mui/material/CssBaseline";
+import io from "socket.io-client";
 
 const darkTheme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: "dark",
   },
 });
 
 const lightTheme = createTheme({
   palette: {
-    mode: 'light',
+    mode: "light",
   },
 });
 
@@ -22,52 +34,52 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
   height: 34,
   padding: 7,
-  '& .MuiSwitch-switchBase': {
+  "& .MuiSwitch-switchBase": {
     margin: 1,
     padding: 0,
-    transform: 'translateX(6px)',
-    '&.Mui-checked': {
-      color: '#fff',
-      transform: 'translateX(22px)',
-      '& .MuiSwitch-thumb:before': {
+    transform: "translateX(6px)",
+    "&.Mui-checked": {
+      color: "#fff",
+      transform: "translateX(22px)",
+      "& .MuiSwitch-thumb:before": {
         backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
-          '#fff',
+          "#fff",
         )}" d="M4.2 2.5l-.7 1.8-1.8.7 1.8.7.7 1.8.6-1.8L6.7 5l-1.9-.7-.6-1.8zm15 8.3a6.7 6.7 0 11-6.6-6.6 5.8 5.8 0 006.6 6.6z"/></svg>')`,
       },
-      '& + .MuiSwitch-track': {
+      "& + .MuiSwitch-track": {
         opacity: 1,
-        backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#aab4be',
+        backgroundColor: theme.palette.mode === "dark" ? "#8796A5" : "#aab4be",
       },
     },
   },
-  '& .MuiSwitch-thumb': {
-    backgroundColor: theme.palette.mode === 'dark' ? '#003892' : '#001e3c',
+  "& .MuiSwitch-thumb": {
+    backgroundColor: theme.palette.mode === "dark" ? "#003892" : "#001e3c",
     width: 32,
     height: 32,
-    '&::before': {
+    "&::before": {
       content: "''",
-      position: 'absolute',
-      width: '100%',
-      height: '100%',
+      position: "absolute",
+      width: "100%",
+      height: "100%",
       left: 0,
       top: 0,
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center',
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center",
       backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
-        '#fff',
+        "#fff",
       )}" d="M9.305 1.667V3.75h1.389V1.667h-1.39zm-4.707 1.95l-.982.982L5.09 6.072l.982-.982-1.473-1.473zm10.802 0L13.927 5.09l.982.982 1.473-1.473-.982-.982zM10 5.139a4.872 4.872 0 00-4.862 4.86A4.872 4.872 0 0010 14.862 4.872 4.872 0 0014.86 10 4.872 4.872 0 0010 5.139zm0 1.389A3.462 3.462 0 0113.471 10a3.462 3.462 0 01-3.473 3.472A3.462 3.462 0 016.527 10 3.462 3.462 0 0110 6.528zM1.665 9.305v1.39h2.083v-1.39H1.666zm14.583 0v1.39h2.084v-1.39h-2.084zM5.09 13.928L3.616 15.4l.982.982 1.473-1.473-.982-.982zm9.82 0l-.982.982 1.473 1.473.982-.982-1.473-1.473zM9.305 16.25v2.083h1.389V16.25h-1.39z"/></svg>')`,
     },
   },
-  '& .MuiSwitch-track': {
+  "& .MuiSwitch-track": {
     opacity: 1,
-    backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#aab4be',
+    backgroundColor: theme.palette.mode === "dark" ? "#8796A5" : "#aab4be",
     borderRadius: 20 / 2,
   },
 }));
 
 const theme = (darkMode: boolean) => (darkMode ? darkTheme : lightTheme);
 
-const socket = io('http://' + window.location.hostname + ':5000');
+const socket = io("http://" + window.location.hostname + ":5000");
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);
@@ -79,7 +91,7 @@ function App() {
   const [yValue, setYValue] = useState<number>(0);
 
   useEffect(() => {
-    socket.on('slider_data', (data) => {
+    socket.on("slider_data", (data) => {
       setXValue(data.x);
       setYValue(data.y);
     });
@@ -87,19 +99,19 @@ function App() {
 
   const handleXSliderChange = (_: Event, newValue: number | number[]) => {
     setXValue(Array.isArray(newValue) ? newValue[0] : newValue);
-    socket.emit('slider_data', { x: newValue, y: yValue });
+    socket.emit("slider_data", { x: newValue, y: yValue });
   };
 
   const handleYSliderChange = (_: Event, newValue: number | number[]) => {
     setYValue(Array.isArray(newValue) ? newValue[0] : newValue);
-    socket.emit('slider_data', { x: xValue, y: newValue });
+    socket.emit("slider_data", { x: xValue, y: newValue });
   };
 
   const [lMotor, setLMotor] = useState<number>(0);
   const [rMotor, setRMotor] = useState<number>(0);
 
   useEffect(() => {
-    socket.on('motor_data', (data) => {
+    socket.on("motor_data", (data) => {
       setLMotor(data.lMotor);
       setRMotor(data.rMotor);
     });
@@ -107,27 +119,32 @@ function App() {
 
   const handleLMotorChange = (_: Event, newValue: number | number[]) => {
     setLMotor(Array.isArray(newValue) ? newValue[0] : newValue);
-    socket.emit('motor_data', { b: newValue, s: rMotor });
+    socket.emit("motor_data", { b: newValue, s: rMotor });
   };
 
   const handleRMotorChange = (_: Event, newValue: number | number[]) => {
     setRMotor(Array.isArray(newValue) ? newValue[0] : newValue);
-    socket.emit('motor_data', { b: lMotor, s: newValue });
+    socket.emit("motor_data", { b: lMotor, s: newValue });
   };
-
 
   const [spotlight, setSpotlight] = useState<boolean>(false);
 
-  const handleSpotlightChange = (_: ChangeEvent<HTMLInputElement>, newValue: boolean) => {
+  const handleSpotlightChange = (
+    _: ChangeEvent<HTMLInputElement>,
+    newValue: boolean,
+  ) => {
     setSpotlight(newValue);
-    socket.emit('spotlight', { on: newValue });
+    socket.emit("spotlight", { on: newValue });
   };
 
   const [lighting, setLighting] = useState<boolean>(false);
 
-  const handleLightingChange = (_: ChangeEvent<HTMLInputElement>, newValue: boolean) => {
+  const handleLightingChange = (
+    _: ChangeEvent<HTMLInputElement>,
+    newValue: boolean,
+  ) => {
     setLighting(newValue);
-    socket.emit('lights', { on: newValue });
+    socket.emit("lights", { on: newValue });
   };
 
   //gamepad code
@@ -145,7 +162,7 @@ function App() {
   const [gamepad, setGamepad] = useState<Gamepad | null>(null);
   const handleConnect = (gamepadIndex: number) => {
     setGamepad(gamepadIndex !== -1 ? new Gamepad(gamepadIndex) : null);
-    console.log('Gamepad connected:', gamepadIndex);
+    console.log("Gamepad connected:", gamepadIndex);
     // Handle gamepad connection
   };
 
@@ -154,10 +171,14 @@ function App() {
     // Handle button change
   };
 
-  const handleAxisChange = (axisName: Axis, value: number, previousValue: number) => {
+  const handleAxisChange = (
+    axisName: Axis,
+    value: number,
+    previousValue: number,
+  ) => {
     console.log(axisName, value, previousValue);
     // Handle axis change
-    if (axisName === 'LeftStickX' || axisName === 'LeftStickY') {
+    if (axisName === "LeftStickX" || axisName === "LeftStickY") {
       // Calculate combined speed from both X and Y axes
 
       const xSpeed = leftStickX * MAX_SPEED;
@@ -167,17 +188,17 @@ function App() {
       setLMotor(ySpeed + xSpeed);
       setRMotor(ySpeed - xSpeed);
     }
-    if (axisName === 'LeftStickX') {
+    if (axisName === "LeftStickX") {
       setLeftStickX(value);
-    } else if (axisName === 'LeftStickY') {
+    } else if (axisName === "LeftStickY") {
       setLeftStickY(value);
-    } else if (axisName === 'RightStickX') {
+    } else if (axisName === "RightStickX") {
       setRightStickX(value);
-    } else if (axisName === 'RightStickY') {
+    } else if (axisName === "RightStickY") {
       setRightStickY(value);
-    } else if (axisName === 'LeftTrigger') {
+    } else if (axisName === "LeftTrigger") {
       setLeftTrigger(value);
-    } else if (axisName === 'RightTrigger') {
+    } else if (axisName === "RightTrigger") {
       setRightTrigger(value);
     }
   };
@@ -185,7 +206,11 @@ function App() {
   return (
     <ThemeProvider theme={theme(darkMode)}>
       <CssBaseline />
-      <Gamepad onConnect={handleConnect} onButtonChange={handleButtonChange} onAxisChange={handleAxisChange}>
+      <Gamepad
+        onConnect={handleConnect}
+        onButtonChange={handleButtonChange}
+        onAxisChange={handleAxisChange}
+      >
         <Paper />
       </Gamepad>
       <AppBar position="static">
@@ -196,29 +221,101 @@ function App() {
           <MaterialUISwitch checked={darkMode} onChange={toggleDarkMode} />
         </Toolbar>
       </AppBar>
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, m: 2 }}>
-        <Paper elevation={10} square sx={{ maxWidth: '750px', margin: '0 auto', p: 4 }}>
-          <Container style={{ display: 'flex', flexDirection: 'row', alignItems: 'top' }}>
-            <Slider min={-90} max={90} track={false} valueLabelDisplay='auto' value={yValue} onChange={handleYSliderChange} orientation='vertical' style={{ marginRight: '8px', height: '480px', paddingLeft: 0 }} />
-            <Container style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-              <iframe src="http://" + window.location.hostname ":8000/stream.mjpg" width="640px" height="480px" style={{ border: 'none', marginRight: "20" }} loading="lazy" />
-              <Slider min={-90} max={90} track={false} valueLabelDisplay='auto' value={xValue} onChange={handleXSliderChange} style={{ width: '640px', marginTop: '16px' }} />
+      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2, m: 2 }}>
+        <Paper
+          elevation={10}
+          square
+          sx={{ maxWidth: "750px", margin: "0 auto", p: 4 }}
+        >
+          <Container
+            style={{ display: "flex", flexDirection: "row", alignItems: "top" }}
+          >
+            <Slider
+              min={-90}
+              max={90}
+              track={false}
+              valueLabelDisplay="auto"
+              value={yValue}
+              onChange={handleYSliderChange}
+              orientation="vertical"
+              style={{ marginRight: "8px", height: "480px", paddingLeft: 0 }}
+            />
+            <Container
+              style={{ display: "flex", flexDirection: "column", flex: 1 }}
+            >
+              <iframe
+                src={`http://${window.location.hostname}:8000/stream.mjpg`}
+                width="640px"
+                height="480px"
+                style={{ border: "none", marginRight: "20px" }}
+                loading="lazy"
+              />
+              <Slider
+                min={-90}
+                max={90}
+                track={false}
+                valueLabelDisplay="auto"
+                value={xValue}
+                onChange={handleXSliderChange}
+                style={{ width: "640px", marginTop: "16px" }}
+              />
             </Container>
-            <LinearProgress color="secondary" style={{ marginTop: '16px', marginLeft: '16px', width: '640px' }} variant="determinate" value={xValue} />
+            <LinearProgress
+              color="secondary"
+              style={{ marginTop: "16px", marginLeft: "16px", width: "640px" }}
+              variant="determinate"
+              value={xValue}
+            />
           </Container>
-        </Paper >
-        <Paper elevation={10} square sx={{ maxWidth: '250px', margin: '0 auto', p: 4 }}>
-          <Slider min={0 - MAX_SPEED} max={MAX_SPEED} track={false} valueLabelDisplay='auto' value={lMotor} onChange={handleLMotorChange} orientation='vertical' />
-          <Slider min={0 - MAX_SPEED} max={MAX_SPEED} track={false} valueLabelDisplay='auto' value={rMotor} onChange={handleRMotorChange} orientation='vertical' />
         </Paper>
-        <Paper elevation={10} square sx={{ maxWidth: '250px', margin: '0 auto', p: 4 }}>
+        <Paper
+          elevation={10}
+          square
+          sx={{ maxWidth: "250px", margin: "0 auto", p: 4 }}
+        >
+          <Slider
+            min={0 - MAX_SPEED}
+            max={MAX_SPEED}
+            track={false}
+            valueLabelDisplay="auto"
+            value={lMotor}
+            onChange={handleLMotorChange}
+            orientation="vertical"
+          />
+          <Slider
+            min={0 - MAX_SPEED}
+            max={MAX_SPEED}
+            track={false}
+            valueLabelDisplay="auto"
+            value={rMotor}
+            onChange={handleRMotorChange}
+            orientation="vertical"
+          />
+        </Paper>
+        <Paper
+          elevation={10}
+          square
+          sx={{ maxWidth: "250px", margin: "0 auto", p: 4 }}
+        >
           <FormGroup>
             <FormControlLabel
-              control={<Switch sx={{ m: 1 }} checked={spotlight} onChange={handleSpotlightChange} />}
+              control={
+                <Switch
+                  sx={{ m: 1 }}
+                  checked={spotlight}
+                  onChange={handleSpotlightChange}
+                />
+              }
               label="Scheinwerfer"
             />
             <FormControlLabel
-              control={<Switch sx={{ m: 1 }} checked={lighting} onChange={handleLightingChange} />}
+              control={
+                <Switch
+                  sx={{ m: 1 }}
+                  checked={lighting}
+                  onChange={handleLightingChange}
+                />
+              }
               label="Beleuchtung"
             />
           </FormGroup>
