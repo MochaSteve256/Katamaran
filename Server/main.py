@@ -1,11 +1,13 @@
 import subprocess
 import os
 import threading
+import signal
 try:
     os.system("sudo pigpiod")
 except:
     pass
 try:
+    signal.signal(signal.SIGTERM, lambda *args: sys.exit(0))
     import net
     net_thread = threading.Thread(target=net.run)
     net_thread.start()
