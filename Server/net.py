@@ -76,7 +76,7 @@ def handle_motor_data(data):
     motors.steuerbord_speed(data.get('s'))
 
 def run():
-    socketio.run(app, use_reloader=True, debug=False, log_output=True, host='0.0.0.0', port=5000)
+    socketio.run(app, use_reloader=False, debug=True, log_output=False, host='0.0.0.0', port=5000)
 
 if __name__ == '__main__':
     run()
