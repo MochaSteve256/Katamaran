@@ -6,9 +6,7 @@ try:
 except:
     pass
 try:
-    import net
-    net_thread = threading.Thread(target=net.run)
-    net_thread.start()
+    net_process = subprocess.Popen(["python3", "/home/pi/Katamaran/Server/net.py"])
 except:
     pass
 try:
