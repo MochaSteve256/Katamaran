@@ -8,7 +8,7 @@ except:
 try:
     import net
     net_thread = threading.Thread(target=net.run)
-    net_thread.run()
+    net_thread.start()
 except:
     pass
 try:
