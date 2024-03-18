@@ -1,6 +1,6 @@
 import subprocess
 import os
-os.system("sudo pigpio")
+os.system("sudo pigpiod")
 
 net_process = subprocess.Popen(["python3", "/home/pi/Katamaran/Server/net.py"])
 camera_process = subprocess.Popen(["python3", "/home/pi/Katamaran/Server/camera.py"])
