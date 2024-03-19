@@ -2,6 +2,7 @@ from flask import Flask
 from flask_socketio import SocketIO
 from flask_cors import CORS
 import threading
+import time
 
 import edev
 import motors
@@ -40,6 +41,7 @@ def background_thread():
         #gyro x, y, z float
         x_v, y_v, z_v  = pos.get_gyro()
         socketio.emit("gyro_data", {"x": x_v, "y": y_v, "z": z_v})
+        time.sleep(.2)
 
 spotlight_on = False
 lMotor_speed = 0

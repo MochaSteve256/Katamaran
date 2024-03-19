@@ -203,6 +203,7 @@ function App() {
   useEffect(() => {
     socket.on("ultrasonic_data", (data) => {
       setDistance(data.distance);
+      console.log(data.distance);
     });
   }, []);
 
