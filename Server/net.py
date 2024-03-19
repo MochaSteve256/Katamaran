@@ -48,7 +48,7 @@ def handle_connect():
     # emit current states
     #camera x and y int
     global x_value, y_value
-    socketio.emit('slider_data', {'x': 0 - x_value, 'y': y_value})
+    socketio.emit('slider_data', {'x': 0 - x_value + 90, 'y': y_value - 90})
     #lights bool
     global lights_on
     socketio.emit("lights", {"on": lights_on})
