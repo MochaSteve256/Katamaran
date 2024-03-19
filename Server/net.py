@@ -62,6 +62,13 @@ def handle_connect():
     socketio.emit("motor_data", {"b": lMotor_speed, "s": rMotor_speed})
     #spotlight bool
     socketio.emit("spotlight", {"on": spotlight_on})
+    global running
+    running = True
+
+@socketio.on("disconnect")
+def handle_disconnect(data):
+    global runnning
+    running = False
 
 @socketio.on('slider_data')
 def handle_slider_data(data):
