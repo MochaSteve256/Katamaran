@@ -51,7 +51,7 @@ def backboard(on: bool):
 def steuerboard(on: bool):
     if on:
         # Set duty cycle to 50% (LED fully on)
-        steuerboard_pwm.ChangeDutyCycle(50)
+        steuerboard_pwm.ChangeDutyCycle(30)
     else:
         # Set duty cycle to 0% (LED fully off)
         steuerboard_pwm.ChangeDutyCycle(0)
@@ -59,7 +59,7 @@ def steuerboard(on: bool):
 def front(on: bool):
     if on:
         # Set duty cycle to 50% (LED fully on)
-        front_pwm.ChangeDutyCycle(50)
+        front_pwm.ChangeDutyCycle(20)
     else:
         # Set duty cycle to 0% (LED fully off)
         front_pwm.ChangeDutyCycle(0)
