@@ -7,6 +7,8 @@ import edev
 import motors
 import servo
 
+running = False
+
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins="*")
 
@@ -14,7 +16,6 @@ x_value = 0
 y_value = 0
 timer_x = None
 timer_y = None
-
 
 def set_cam_x():
     global x_value, timer_x
@@ -27,20 +28,35 @@ def set_cam_y():
     servo.setcamy(y_value)
     timer_y = None
 
+def background_thread():
+    global running
+    while running:
+        # emit variable data
+        #ultrasonic distance float
+        socketio.emit('ultrasonic_data', {'distance': edev.ultra()})
+        #gps lat, lng, alt, spd float
+        #wifi strength int
+        #gyro x, y, z float
+
+spotlight_on = False
+lMotor_speed = 0
+rMotor_speed = 0
+lights_on = False
+
 @socketio.on('connect')
 def handle_connect():
     # emit current states
     #camera x and y int
     global x_value, y_value
-    socketio.emit('slider_data', {'x': 0 - x_value - 90, 'y': y_value - 90})
-    #spotlight bool
+    socketio.emit('slider_data', {'x': 0 - x_value + 90, 'y': y_value - 90})
+    #lights bool
+    global lights_on
+    socketio.emit("lights", {"on": lights_on})
     #motor speeds int
-
-    # emit variable data
-    #ultrasonic distance float
-    #gps lat, lng, alt, spd float
-    #wifi strength int
-    #gyro x, y, z float
+    global lMotor_speed, rMotor_speed
+    socketio.emit("motor_data", {"b": lMotor_speed, "s": rMotor_speed})
+    #spotlight bool
+    socketio.emit("spotlight", {"on": lights_on})
 
 @socketio.on('slider_data')
 def handle_slider_data(data):
@@ -65,15 +81,22 @@ def handle_slider_data(data):
 @socketio.on('spotlight')
 def handle_spotlight(data):
     edev.scheinwerfer(data.get('on'))
+    global spotlight_on
+    spotlight_on = data.get("on")
 
 @socketio.on('lights')
 def handle_lights(data):
     edev.lights(data.get('on'))
+    global lights_on
+    lights_on = data.get("on")
 
 @socketio.on('motor_data')
 def handle_motor_data(data):
     motors.backbord_speed(data.get('b'))
     motors.steuerbord_speed(data.get('s'))
+    global lMotor_speed, rMotor_speed
+    lMotor_speed = data.get("b")
+    rMotor_speed = data.get("s")
 
 def run():
     socketio.run(app, use_reloader=False, debug=True, log_output=False, allow_unsafe_werkzeug=True, host='0.0.0.0', port=5000)

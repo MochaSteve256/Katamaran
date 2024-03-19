@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 import {
   Container,
   Box,
@@ -11,6 +11,14 @@ import {
   FormGroup,
   FormControlLabel,
   LinearProgress,
+  SettingsPowerIcon,
+  RestartAltIcon,
+  PowerSettingsNewIcon,
+  SignalCellular0BarIcon,
+  SignalCellular1BarIcon,
+  SignalCellular2BarIcon,
+  SignalCellular3BarIcon,
+  SignalCellular4BarIcon,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { ThemeProvider, createTheme } from "@mui/material/styles"; // Move this line up
@@ -135,6 +143,8 @@ function App() {
     socket.emit("spotlight", { on: newValue });
   };
 
+  useEffect(() => {}, []);
+
   const [lighting, setLighting] = useState<boolean>(false);
 
   const handleLightingChange = (
@@ -154,6 +164,8 @@ function App() {
   const [rightTrigger, setRightTrigger] = useState<number>(0);
 
   const MAX_SPEED = 500;
+
+  const [distance, setDistance] = useState(0);
 
   type Button = string;
   type Axis = string;
@@ -270,12 +282,6 @@ function App() {
                 style={{ width: "640px", marginTop: "16px" }}
               />
             </Container>
-            <LinearProgress
-              color="secondary"
-              style={{ marginTop: "16px", marginLeft: "16px", width: "640px" }}
-              variant="determinate"
-              value={xValue}
-            />
           </Container>
         </Paper>
         <Paper
@@ -291,6 +297,7 @@ function App() {
             value={lMotor}
             onChange={handleLMotorChange}
             orientation="vertical"
+            style={{ minHeight: "300px" }}
           />
           <Slider
             min={0 - MAX_SPEED}
@@ -300,6 +307,21 @@ function App() {
             value={rMotor}
             onChange={handleRMotorChange}
             orientation="vertical"
+          />
+        </Paper>
+        <Paper
+          elevation={10}
+          square
+          sx={{ maxWidth: "250px", minHeight: "480px", margin: "0 auto", p: 4 }}
+        >
+          <LinearProgress
+            variant="determinate"
+            value={distance} // Assuming distance is a percentage value (0-100)
+            sx={{
+              transform: "rotate(180deg)",
+              borderRadius: "10px",
+              height: "100%",
+            }}
           />
         </Paper>
         <Paper
