@@ -1,5 +1,6 @@
 from asyncio.proactor_events import constants
 import RPi.GPIO as gp
+gp.setwarnings(False)
 import time
 import threading
 # Pin-Nummern für Geräte einstellen

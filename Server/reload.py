@@ -2,7 +2,7 @@ import os
 import subprocess
 
 # Define the process names to check
-processes_to_check = ["python3 main.py", "python3 /home/pi/Katamaran/Server/camera.py", "npm run dev"]
+processes_to_check = ["main.py", "camera.py", "npm run dev"]
 
 # Function to check if a process is running
 def is_process_running(process_name):
@@ -28,4 +28,5 @@ os.chdir("/home/pi/Katamaran/Server")
 # pull changes
 os.system("git pull")
 # run
+print("Starting main.py")
 os.system("python3 main.py")
