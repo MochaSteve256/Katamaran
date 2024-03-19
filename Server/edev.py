@@ -30,8 +30,38 @@ def conled():
             time.sleep(0.001)
             gp.output(co, False)
             time.sleep(0.002)
-th = threading.Thread(target=conled)
-th.start()
+con_th = threading.Thread(target=conled)
+con_th.start()
+
+steuerboard_led = False
+front_led = False
+
+def steuerboardled():
+    global backboard_led
+    while 1:
+        if steuerboard_led:
+            gp.output(st, True)
+            time.sleep(.01)
+            gp.output(st, False)
+            time.sleep(.01)
+        else:
+            gp.output(st, False)
+
+def frontled():
+    global backboard_led
+    while 1:
+        if front_led:
+            gp.output(fr, True)
+            time.sleep(.01)
+            gp.output(fr, False)
+            time.sleep(.01)
+        else:
+            gp.output(fr, False)
+
+st_th = threading.Thread(target=steuerboardled)
+fr_th = threading.Thread(target=frontled)
+st_th.start()
+fr_th.start()
 
 def backboard(on: bool):
     if on:
@@ -40,16 +70,12 @@ def backboard(on: bool):
         gp.output(ba, False)
 
 def steuerboard(on: bool):
-    if on:
-        gp.output(st, True)
-    else:
-        gp.output(st, False)
+    global steuerboard_led
+    steuerboard_led = on
 
 def front(on: bool):
-    if on:
-        gp.output(fr, True)
-    else:
-        gp.output(fr, False)
+    global front_led
+    front_led = on
 
 def ready(on: bool):
     if on:
