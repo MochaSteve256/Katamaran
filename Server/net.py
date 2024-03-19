@@ -35,7 +35,7 @@ def background_thread():
     while running:
         # emit variable data
         #ultrasonic distance float
-        socketio.emit('ultrasonic_data', {'distance': edev.ultra()})
+        socketio.emit('ultrasonic_data', {'distance': round(edev.ultra() / 100, 2)})
         #gps lat, lng, alt, spd float
         #wifi strength int
         #gyro x, y, z float
