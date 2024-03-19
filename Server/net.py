@@ -41,6 +41,7 @@ def background_thread():
         #gyro x, y, z float
         x_v, y_v, z_v  = pos.get_gyro()
         socketio.emit("gyro_data", {"x": x_v, "y": y_v, "z": z_v})
+        print("Sent variable data.")
         time.sleep(.2)
 
 spotlight_on = False
@@ -66,7 +67,7 @@ def handle_connect():
     running = True
 
 @socketio.on("disconnect")
-def handle_disconnect(data):
+def handle_disconnect():
     global runnning
     running = False
 
