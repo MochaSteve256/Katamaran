@@ -120,8 +120,8 @@ function App() {
 
   useEffect(() => {
     socket.on("motor_data", (data) => {
-      setLMotor(data.lMotor);
-      setRMotor(data.rMotor);
+      setLMotor(data.b);
+      setRMotor(data.s);
     });
   }, []);
 
@@ -143,7 +143,11 @@ function App() {
     socket.emit("spotlight", { on: newValue });
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    socket.on("spotlight", (data) => {
+      setSpotlight(data.on);
+    });
+  }, []);
 
   const [lighting, setLighting] = useState<boolean>(false);
 
@@ -154,6 +158,12 @@ function App() {
     setLighting(newValue);
     socket.emit("lights", { on: newValue });
   };
+
+  useEffect(() => {
+    socket.on("lights", (data) => {
+      setLighting(data.on);
+    });
+  }, []);
 
   //gamepad code
   const [leftStickX, setLeftStickX] = useState<number>(0);
