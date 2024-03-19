@@ -3,10 +3,18 @@ import string
 import serial
 import pynmea2
 import py_qmc5883l
+import math
 sensor = py_qmc5883l.QMC5883L()
 def get_gyro():
     m = sensor.get_magnet_raw()
-    return m
+    x_raw, y_raw, z_raw = m
+
+    # Calculate angles for each axis in degrees
+    x_angle = math.atan2(y_raw, z_raw) * 180 / math.pi
+    y_angle = math.atan2(z_raw, x_raw) * 180 / math.pi
+    z_angle = math.atan2(x_raw, y_raw) * 180 / math.pi
+
+    return x_angle, y_angle, z_angle
 def get_loc():
     global gps
     port = "/dev/ttyAMA0"
@@ -20,8 +28,12 @@ def get_loc():
         alt = newmsg.altidude
         spd = newmsg.spd_over_grnd
         gps = [str(lat), str(lng), str(alt), str(spd)]
-    return gps
+        return gps
 
 if __name__ == '__main__':
     while True:
-        print(get_gyro())
+        x_degrees, y_degrees, z_degrees = get_gyro()
+        print("X-axis: {:.2f}".format(x_degrees), end="")
+        print("Y-axis: {:.2f}".format(y_degrees), end="")
+        print("Z-axis: {:.2f}".format(z_degrees), end="\r")
+        time.sleep(0.5)
