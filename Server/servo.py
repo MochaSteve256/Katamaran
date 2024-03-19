@@ -16,6 +16,7 @@ pwm2=GPIO.PWM(s3, 50)
 pwm1.start(0)
 pwm2.start(0)
 def setcamx(angle):
+    angle -= 90
     duty = angle / 18 + 2
     GPIO.output(s2, True)
     pwm1.ChangeDutyCycle(duty)
@@ -23,6 +24,7 @@ def setcamx(angle):
     GPIO.output(s2, False)
     pwm1.ChangeDutyCycle(0)
 def setcamy(angle):
+    angle -= 90
     duty = angle / 18 + 2
     GPIO.output(s3, True)
     pwm2.ChangeDutyCycle(duty)
