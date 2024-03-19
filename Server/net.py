@@ -65,6 +65,7 @@ def handle_connect():
     socketio.emit("spotlight", {"on": spotlight_on})
     global running
     running = True
+    socketio.start_background_task(target=background_thread)
 
 @socketio.on("disconnect")
 def handle_disconnect():
