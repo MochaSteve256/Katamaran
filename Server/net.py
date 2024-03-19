@@ -6,6 +6,7 @@ import threading
 import edev
 import motors
 import servo
+import pos
 
 running = False
 
@@ -37,6 +38,8 @@ def background_thread():
         #gps lat, lng, alt, spd float
         #wifi strength int
         #gyro x, y, z float
+        x_v, y_v, z_v  = pos.get_gyro()
+        socketio.emit("gyro_data", {"x": x_v, "y": y_v, "z": z_v})
 
 spotlight_on = False
 lMotor_speed = 0

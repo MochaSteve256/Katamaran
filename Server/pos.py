@@ -33,7 +33,7 @@ def get_loc():
 if __name__ == '__main__':
     while True:
         x_degrees, y_degrees, z_degrees = get_gyro()
-        print("X-axis: {:.2f}".format(x_degrees), end="")
-        print("Y-axis: {:.2f}".format(y_degrees), end="")
-        print("Z-axis: {:.2f}".format(z_degrees), end="\r")
+        print("X-axis: {:.2f}   ".format(x_degrees), end="")
+        print("Y-axis: {:.2f}   ".format(y_degrees), end="")
+        print("Z-axis: {:.2f}   ".format(z_degrees), end="\r")
         time.sleep(0.5)

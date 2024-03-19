@@ -89,6 +89,29 @@ const theme = (darkMode: boolean) => (darkMode ? darkTheme : lightTheme);
 
 const socket = io("http://katamaran.local:5000");
 
+const marks = [
+  {
+    value: 0,
+    label: "0m",
+  },
+  {
+    value: 1,
+    label: "1m",
+  },
+  {
+    value: 2,
+    label: "2m",
+  },
+  {
+    value: 3,
+    label: "3m",
+  },
+  {
+    value: 4,
+    label: "4m",
+  },
+];
+
 function App() {
   const [darkMode, setDarkMode] = useState(true);
   const toggleDarkMode = () => {
@@ -176,6 +199,12 @@ function App() {
   const MAX_SPEED = 500;
 
   const [distance, setDistance] = useState(0);
+
+  useEffect(() => {
+    socket.on("ultrasonic_data", (data) => {
+      setDistance(data.distance);
+    });
+  }, []);
 
   type Button = string;
   type Axis = string;
@@ -324,14 +353,16 @@ function App() {
           square
           sx={{ maxWidth: "250px", minHeight: "480px", margin: "0 auto", p: 4 }}
         >
-          <LinearProgress
-            variant="determinate"
-            value={distance} // Assuming distance is a percentage value (0-100)
-            sx={{
-              transform: "rotate(180deg)",
-              borderRadius: "10px",
-              height: "100%",
-            }}
+          <Slider
+            disabled
+            defaultValue={4}
+            marks={marks}
+            valueLabelDisplay="on"
+            orientation="vertical"
+            min={0}
+            max={4}
+            value={distance}
+            sx={{ marginLeft: 2 }}
           />
         </Paper>
         <Paper
