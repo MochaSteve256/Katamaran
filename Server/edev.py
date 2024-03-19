@@ -34,35 +34,13 @@ def conled():
 con_th = threading.Thread(target=conled)
 con_th.start()
 
-steuerboard_led = False
-front_led = False
+# Create PWM objects
+steuerboard_pwm = gp.PWM(st, 100)  # 100 Hz frequency
+front_pwm = gp.PWM(fr, 100)         # 100 Hz frequency
 
-def steuerboardled():
-    global backboard_led
-    while 1:
-        if steuerboard_led:
-            gp.output(st, True)
-            time.sleep(.01)
-            gp.output(st, False)
-            time.sleep(.01)
-        else:
-            gp.output(st, False)
-
-def frontled():
-    global backboard_led
-    while 1:
-        if front_led:
-            gp.output(fr, True)
-            time.sleep(.01)
-            gp.output(fr, False)
-            time.sleep(.01)
-        else:
-            gp.output(fr, False)
-
-st_th = threading.Thread(target=steuerboardled)
-fr_th = threading.Thread(target=frontled)
-st_th.start()
-fr_th.start()
+# Start PWM
+steuerboard_pwm.start(0)  # Start with duty cycle 0 (LED off)
+front_pwm.start(0)        # Start with duty cycle 0 (LED off)
 
 def backboard(on: bool):
     if on:
@@ -71,12 +49,20 @@ def backboard(on: bool):
         gp.output(ba, False)
 
 def steuerboard(on: bool):
-    global steuerboard_led
-    steuerboard_led = on
+    if on:
+        # Set duty cycle to 50% (LED fully on)
+        steuerboard_pwm.ChangeDutyCycle(50)
+    else:
+        # Set duty cycle to 0% (LED fully off)
+        steuerboard_pwm.ChangeDutyCycle(0)
 
 def front(on: bool):
-    global front_led
-    front_led = on
+    if on:
+        # Set duty cycle to 50% (LED fully on)
+        front_pwm.ChangeDutyCycle(50)
+    else:
+        # Set duty cycle to 0% (LED fully off)
+        front_pwm.ChangeDutyCycle(0)
 
 def ready(on: bool):
     if on:

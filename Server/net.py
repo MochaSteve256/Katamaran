@@ -4,9 +4,13 @@ from flask_cors import CORS
 import threading
 import time
 
+print("Importing edev.py")
 import edev
+print("Importing motors.py")
 import motors
+print("Importing servo.py")
 import servo
+print("Importing pos.py")
 import pos
 
 running = False
