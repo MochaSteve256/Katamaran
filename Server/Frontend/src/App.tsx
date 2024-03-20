@@ -205,7 +205,8 @@ function App() {
 
   useEffect(() => {
     socket.on("gyro_data", (data) => {
-      setRotation([data.x, data.y, data.z]);
+      console.log(data);
+      setRotation([data.x * (Math.PI / 180), 0,  data.y * (Math.PI / 180)]);
     });
   }, []);
 
