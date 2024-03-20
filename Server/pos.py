@@ -6,8 +6,9 @@ import py_qmc5883l
 import math
 sensor = py_qmc5883l.QMC5883L()
 def get_gyro():
-    m = sensor.get_magnet_raw()
-    x_raw, y_raw, z_raw = m
+    x_raw, y_raw, z_raw = sensor.get_magnet_raw()
+    if x_raw is None or y_raw is None or z_raw is None:
+        return None, None, None
 
     # Calculate angles for each axis in degrees
     x_angle = math.atan2(y_raw, z_raw) * 180 / math.pi

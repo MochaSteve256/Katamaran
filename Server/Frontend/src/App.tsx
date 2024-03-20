@@ -25,6 +25,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles"; // Move this 
 import Gamepad from "react-gamepad";
 import CssBaseline from "@mui/material/CssBaseline";
 import io from "socket.io-client";
+import ThreeScene from "./ThreeScene";
 
 const darkTheme = createTheme({
   palette: {
@@ -199,6 +200,14 @@ function App() {
   const MAX_SPEED = 500;
 
   const [distance, setDistance] = useState(0);
+
+  const [rotation, setRotation] = useState([0, 0, 0]);
+
+  useEffect(() => {
+    socket.on("gyro_data", (data) => {
+      setRotation([data.x, data.y, data.z]);
+    });
+  }, []);
 
   useEffect(() => {
     socket.on("ultrasonic_data", (data) => {
@@ -392,6 +401,7 @@ function App() {
               label="Beleuchtung"
             />
           </FormGroup>
+          <ThreeScene rotation={rotation} />
         </Paper>
       </Box>
     </ThemeProvider>
