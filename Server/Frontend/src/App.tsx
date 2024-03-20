@@ -88,7 +88,20 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 
 const theme = (darkMode: boolean) => (darkMode ? darkTheme : lightTheme);
 
-const socket = io("http://katamaran.local:5000");
+// Define the host variable
+let host = "katamaran.local";
+
+// Check if it's localhost, then replace it with katamaran.local
+if (window.location.hostname === "localhost") {
+    host = "katamaran.local";
+}
+
+// Construct the iframe source URL with the host variable
+const iframeSrc = `http://${host}:8000/stream.mjpg`;
+
+// Use the host variable to create the socket connection
+const socket = io(`http://${host}:5000`);
+
 
 const marks = [
   {
@@ -314,13 +327,13 @@ function App() {
             <Container
               style={{ display: "flex", flexDirection: "column", flex: 1 }}
             >
-              <iframe
-                src="http://katamaran.local:8000/stream.mjpg"
+            <iframe
+                src={iframeSrc}
                 width="640px"
                 height="480px"
                 style={{ border: "none", marginRight: "20px" }}
                 loading="lazy"
-              />
+            />
               <Slider
                 min={-90}
                 max={90}
