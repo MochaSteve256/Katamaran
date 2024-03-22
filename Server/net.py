@@ -1,3 +1,4 @@
+import subprocess
 from flask import Flask
 from flask_socketio import SocketIO
 from flask_cors import CORS
@@ -116,6 +117,25 @@ def handle_motor_data(data):
     global lMotor_speed, rMotor_speed
     lMotor_speed = data.get("b")
     rMotor_speed = data.get("s")
+
+@socketio.on('power_mgmt')
+def handle_power_mgmt(data):
+    if data.get("action") == "shutdown":
+        subprocess.Popen(["sudo", "shutdown", "now"])
+    elif data.get("action") == "reboot":
+        subprocess.Popen(["sudo", "reboot"])
+
+@socketio.on("camera_mgmt")
+def handle_camera_mgmt(data):
+    if data.get("action") == "take":
+        #take photo
+        pass
+    elif data.get("action") == "start":
+        #start recording
+        pass
+    elif data.get("action") == "stop":
+        #stop ongoing recording if currently recording
+        pass
 
 def run():
     socketio.run(app, use_reloader=False, debug=True, log_output=False, allow_unsafe_werkzeug=True, host='0.0.0.0', port=5000)

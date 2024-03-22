@@ -2,6 +2,8 @@
 from time import sleep
 import RPi.GPIO as GPIO
 import sys
+
+from Server.net import set_cam_x
 #gpio pins of the servos
 s1 = 29 #lenk
 s2 = 38 #cam x
@@ -31,6 +33,9 @@ def setcamy(angle):
     sleep(1)
     GPIO.output(s3, False)
     pwm2.ChangeDutyCycle(0)
+
+setcamx(90)
+setcamy(90)
 
 if __name__ == "__main__":
     #loop

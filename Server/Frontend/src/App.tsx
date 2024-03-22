@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEvent } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import {
   Container,
   Box,
@@ -10,16 +10,22 @@ import {
   Toolbar,
   FormGroup,
   FormControlLabel,
-  LinearProgress,
-  SettingsPowerIcon,
-  RestartAltIcon,
-  PowerSettingsNewIcon,
-  SignalCellular0BarIcon,
-  SignalCellular1BarIcon,
-  SignalCellular2BarIcon,
-  SignalCellular3BarIcon,
-  SignalCellular4BarIcon,
+  Fab,
+  Tooltip,
 } from "@mui/material";
+
+import SettingsPowerIcon from "@mui/icons-material/SettingsPower";
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
+import SignalCellular0BarIcon from "@mui/icons-material/SignalCellular0Bar";
+import SignalCellular1BarIcon from "@mui/icons-material/SignalCellular1Bar";
+import SignalCellular2BarIcon from "@mui/icons-material/SignalCellular2Bar";
+import SignalCellular3BarIcon from "@mui/icons-material/SignalCellular3Bar";
+import SignalCellular4BarIcon from "@mui/icons-material/SignalCellular4Bar";
+import CameraEnhanceIcon from "@mui/icons-material/CameraEnhance";
+import VideoCamIcon from "@mui/icons-material/VideoCam";
+import VideoCamOffIcon from "@mui/icons-material/VideoCamOff";
+
 import { styled } from "@mui/material/styles";
 import { ThemeProvider, createTheme } from "@mui/material/styles"; // Move this line up
 import Gamepad from "react-gamepad";
@@ -93,7 +99,7 @@ let host = "katamaran.local";
 
 // Check if it's localhost, then replace it with katamaran.local
 if (window.location.hostname === "localhost") {
-    host = "katamaran.local";
+  host = "katamaran.local";
 }
 
 // Construct the iframe source URL with the host variable
@@ -101,7 +107,6 @@ const iframeSrc = `http://${host}:8000/stream.mjpg`;
 
 // Use the host variable to create the socket connection
 const socket = io(`http://${host}:5000`);
-
 
 const marks = [
   {
@@ -219,7 +224,7 @@ function App() {
   useEffect(() => {
     socket.on("gyro_data", (data) => {
       console.log(data);
-      setRotation([data.x * (Math.PI / 180), 0,  data.y * (Math.PI / 180)]);
+      setRotation([data.x * (Math.PI / 180), 0, data.y * (Math.PI / 180)]);
     });
   }, []);
 
@@ -287,6 +292,31 @@ function App() {
     socket.emit("motor_data", { b: lMotor, s: rMotor });
   }, [rMotor]);
 
+  const shutDown = () => {
+    if (window.confirm("Wirklich herunterfahren?")) {
+      //send shutdown signal
+      socket.emit("power_mgmt", { action: "shutdown" });
+    }
+  };
+  const reboot = () => {
+    if (window.confirm("Wirklich neustarten?")) {
+      //send reboot signal
+      socket.emit("power_mgmt", { action: "reboot" });
+    }
+  };
+  const takePhoto = () => {
+    //send take photo signal
+    socket.emit("camera_mgmt", { action: "take" });
+  };
+  const startRecording = () => {
+    //send start video recording signal
+    socket.emit("camera_mgmt", { action: "start" });
+  };
+  const stopRecording = () => {
+    //send stop video recording signl
+    socket.emit("camera_mgmt", { action: "stop" });
+  };
+
   return (
     <ThemeProvider theme={theme(darkMode)}>
       <CssBaseline />
@@ -299,9 +329,47 @@ function App() {
       </Gamepad>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography
+            variant="h5"
+            component="div"
+            sx={{ mr: 2, fontWeight: "bold" }}
+          >
             Katamaran
           </Typography>
+          <Box sx={{ flexGrow: 1 }}>
+            <Tooltip title="Herunterfahren">
+              <Fab
+                size="small"
+                color="secondary"
+                sx={{ mr: 2 }}
+                onClick={shutDown}
+              >
+                <PowerSettingsNewIcon />
+              </Fab>
+            </Tooltip>
+            <Tooltip title="Neustarten">
+              <Fab size="small" color="secondary" onClick={reboot}>
+                <RestartAltIcon />
+              </Fab>
+            </Tooltip>
+          </Box>
+          <Box>
+            <Tooltip title="Foto machen">
+              <Fab size="small" sx={{ mr: 3 }} onClick={takePhoto}>
+                <CameraEnhanceIcon />
+              </Fab>
+            </Tooltip>
+            <Tooltip title="Video aufnehmen">
+              <Fab size="small" sx={{ mr: 1 }} onClick={startRecording}>
+                <VideoCamIcon />
+              </Fab>
+            </Tooltip>
+            <Tooltip title="Aufnahme stoppen">
+              <Fab size="small" sx={{ mr: 4 }} onClick={stopRecording}>
+                <VideoCamOffIcon />
+              </Fab>
+            </Tooltip>
+          </Box>
           <MaterialUISwitch checked={darkMode} onChange={toggleDarkMode} />
         </Toolbar>
       </AppBar>
@@ -327,13 +395,13 @@ function App() {
             <Container
               style={{ display: "flex", flexDirection: "column", flex: 1 }}
             >
-            <iframe
+              <iframe
                 src={iframeSrc}
                 width="640px"
                 height="480px"
                 style={{ border: "none", marginRight: "20px" }}
                 loading="lazy"
-            />
+              />
               <Slider
                 min={-90}
                 max={90}
