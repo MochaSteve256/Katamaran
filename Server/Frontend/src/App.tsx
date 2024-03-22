@@ -361,12 +361,12 @@ function App() {
             </Tooltip>
             <Tooltip title="Video aufnehmen">
               <Fab size="small" sx={{ mr: 1 }} onClick={startRecording}>
-                <VideoCamIcon />
+                <VideocamIcon />
               </Fab>
             </Tooltip>
             <Tooltip title="Aufnahme stoppen">
               <Fab size="small" sx={{ mr: 4 }} onClick={stopRecording}>
-                <VideoCamOffIcon />
+                <VideocamOffIcon />
               </Fab>
             </Tooltip>
           </Box>
