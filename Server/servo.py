@@ -3,7 +3,6 @@ from time import sleep
 import RPi.GPIO as GPIO
 import sys
 
-from Server.net import set_cam_x
 #gpio pins of the servos
 s1 = 29 #lenk
 s2 = 38 #cam x

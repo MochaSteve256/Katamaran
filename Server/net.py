@@ -1,4 +1,5 @@
 import subprocess
+import os
 from flask import Flask
 from flask_socketio import SocketIO
 from flask_cors import CORS
@@ -121,9 +122,9 @@ def handle_motor_data(data):
 @socketio.on('power_mgmt')
 def handle_power_mgmt(data):
     if data.get("action") == "shutdown":
-        subprocess.Popen(["sudo", "shutdown", "now"])
+        os.system("sudo shutdown now")
     elif data.get("action") == "reboot":
-        subprocess.Popen(["sudo", "reboot"])
+        os.system("sudo reboot")
 
 @socketio.on("camera_mgmt")
 def handle_camera_mgmt(data):
