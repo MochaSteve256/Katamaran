@@ -23,8 +23,8 @@ import SignalCellular2BarIcon from "@mui/icons-material/SignalCellular2Bar";
 import SignalCellular3BarIcon from "@mui/icons-material/SignalCellular3Bar";
 import SignalCellular4BarIcon from "@mui/icons-material/SignalCellular4Bar";
 import CameraEnhanceIcon from "@mui/icons-material/CameraEnhance";
-import VideoCamIcon from "@mui/icons-material/VideoCam";
-import VideoCamOffIcon from "@mui/icons-material/VideoCamOff";
+import VideocamIcon from "@mui/icons-material/Videocam";
+import VideocamOffIcon from "@mui/icons-material/VideocamOff";
 
 import { styled } from "@mui/material/styles";
 import { ThemeProvider, createTheme } from "@mui/material/styles"; // Move this line up

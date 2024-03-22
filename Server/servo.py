@@ -33,8 +33,8 @@ def setcamy(angle):
     GPIO.output(s3, False)
     pwm2.ChangeDutyCycle(0)
 
-setcamx(90)
-setcamy(90)
+setcamx(0)
+setcamy(0)
 
 if __name__ == "__main__":
     #loop
