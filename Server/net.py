@@ -140,6 +140,6 @@ def handle_camera_mgmt(data):
 
 def run():
     socketio.run(app, use_reloader=False, debug=True, log_output=False, allow_unsafe_werkzeug=True, host='0.0.0.0', port=5000)
-
+    print("Socket started!")
 if __name__ == '__main__':
     run()

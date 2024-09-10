@@ -95,7 +95,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 const theme = (darkMode: boolean) => (darkMode ? darkTheme : lightTheme);
 
 // Define the host variable
-let host = "katamaran.local";
+let host = window.location.hostname;
 
 // Check if it's localhost, then replace it with katamaran.local
 if (window.location.hostname === "localhost") {

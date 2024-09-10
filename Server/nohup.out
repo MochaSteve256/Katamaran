@@ -602,3 +602,251 @@ NameError: name 'sys' is not defined
 16:15:05 [vite] hmr update /src/App.tsx
 16:16:58 [vite] hmr update /src/App.tsx
 16:18:19 [vite] hmr update /src/App.tsx
+Current branch master is up to date.
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+Loading PiGPIO daemon
+Starting network endpoint
+Importing edev.py
+Importing motors.py
+Importing servo.py
+Importing pos.py
+Starting camera endpoint
+Starting frontend server
+ * Serving Flask app 'net'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.53.110:5000
+[33mPress CTRL+C to quit[0m
+
+> katamaran-frontend@0.0.0 dev
+> vite --host
+
+
+  VITE v5.1.6  ready in 2657 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: http://192.168.53.110:5173/
+Exception ignored in: <module 'threading' from '/usr/lib/python3.9/threading.py'>
+Traceback (most recent call last):
+  File "/usr/lib/python3.9/threading.py", line 1428, in _shutdown
+    lock.acquire()
+KeyboardInterrupt: 
+Traceback (most recent call last):
+  File "/home/pi/Katamaran/Server/camera.py", line 84, in <module>
+    server.serve_forever()
+  File "/usr/lib/python3.9/socketserver.py", line 232, in serve_forever
+    ready = selector.select(poll_interval)
+  File "/usr/lib/python3.9/selectors.py", line 416, in select
+    fd_event_list = self._selector.poll(timeout)
+KeyboardInterrupt
+Process 'main.py' is not running.
+Process 'camera.py' is not running.
+Process 'npm run dev' is not running.
+Starting main.py
+2024-03-23 14:53:40 initInitialise: Can't lock /var/run/pigpio.pid
+Can't initialise pigpio library
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+Loading PiGPIO daemon
+Starting network endpoint
+Importing edev.py
+Importing motors.py
+Importing servo.py
+Importing pos.py
+Starting camera endpoint
+ * Serving Flask app 'net'
+Starting frontend server
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.53.110:5000
+[33mPress CTRL+C to quit[0m
+
+> katamaran-frontend@0.0.0 dev
+> vite --host
+
+
+  VITE v5.1.6  ready in 1761 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: http://192.168.53.110:5173/
+Exception ignored in: <module 'threading' from '/usr/lib/python3.9/threading.py'>
+Traceback (most recent call last):
+  File "/usr/lib/python3.9/threading.py", line 1428, in _shutdown
+    lock.acquire()
+  File "/home/pi/Katamaran/Server/main.py", line 12, in <lambda>
+    signal.signal(signal.SIGTERM, lambda *args: sys.exit(0))
+NameError: name 'sys' is not defined
+error: cannot pull with rebase: You have unstaged changes.
+error: please commit or stash them.
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+Loading PiGPIO daemon
+Starting network endpoint
+Importing edev.py
+Importing motors.py
+Importing servo.py
+Importing pos.py
+Starting camera endpoint
+Starting frontend server
+ * Serving Flask app 'net'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.53.110:5000
+[33mPress CTRL+C to quit[0m
+
+> katamaran-frontend@0.0.0 dev
+> vite --host
+
+
+  VITE v5.1.6  ready in 2630 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: http://192.168.53.110:5173/
+error: cannot pull with rebase: You have unstaged changes.
+error: please commit or stash them.
+2024-03-23 15:47:40 initInitialise: Can't lock /var/run/pigpio.pid
+Can't initialise pigpio library
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+Loading PiGPIO daemon
+Starting network endpoint
+Importing edev.py
+Importing motors.py
+Importing servo.py
+Importing pos.py
+Starting camera endpoint
+Starting frontend server
+ * Serving Flask app 'net'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.53.110:5000
+[33mPress CTRL+C to quit[0m
+
+> katamaran-frontend@0.0.0 dev
+> vite --host
+
+
+  VITE v5.1.6  ready in 2555 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: http://192.168.53.110:5173/
+192.168.53.162 - - [23/Mar/2024 15:48:08] "GET /socket.io/?EIO=4&transport=polling&t=Ovho8jY HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 15:48:08] "GET /stream.mjpg HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 15:48:08] "GET /socket.io/?EIO=4&transport=polling&t=Ovho8wz&sid=wC-JJGIr-16OQHc2AAAA HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 15:48:08] "POST /socket.io/?EIO=4&transport=polling&t=Ovho8wq&sid=wC-JJGIr-16OQHc2AAAA HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 15:48:09] "GET /socket.io/?EIO=4&transport=polling&t=Ovho94-&sid=wC-JJGIr-16OQHc2AAAA HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 15:50:54] "GET /socket.io/?EIO=4&transport=polling&t=OvhomX7 HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 15:50:54] "GET /socket.io/?EIO=4&transport=websocket&sid=wC-JJGIr-16OQHc2AAAA HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 15:50:54] "POST /socket.io/?EIO=4&transport=polling&t=OvhonJV&sid=11f_-lgfcVMuCzdrAAAC HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 15:50:54] "GET /socket.io/?EIO=4&transport=polling&t=OvhonJt&sid=11f_-lgfcVMuCzdrAAAC HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 15:50:57] "GET /socket.io/?EIO=4&transport=websocket&sid=11f_-lgfcVMuCzdrAAAC HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 15:51:02] "GET /socket.io/?EIO=4&transport=polling&t=OvhopAI HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 15:51:02] "GET /stream.mjpg HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 15:51:03] "POST /socket.io/?EIO=4&transport=polling&t=OvhopND&sid=7oXrwBUA_Q8Q2tpiAAAE HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 15:51:03] "GET /socket.io/?EIO=4&transport=polling&t=OvhopNH&sid=7oXrwBUA_Q8Q2tpiAAAE HTTP/1.1" 200 -
+WARNING:root:Removed streaming client ('192.168.53.162', 52450): [Errno 104] Connection reset by peer
+192.168.53.162 - - [23/Mar/2024 15:55:28] "GET /socket.io/?EIO=4&transport=websocket&sid=7oXrwBUA_Q8Q2tpiAAAE HTTP/1.1" 200 -
+192.0.0.4 - - [23/Mar/2024 15:55:33] "GET /socket.io/?EIO=4&transport=polling&t=OvhprSB HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 15:55:34] "GET /stream.mjpg HTTP/1.1" 200 -
+192.0.0.4 - - [23/Mar/2024 15:55:34] "POST /socket.io/?EIO=4&transport=polling&t=Ovhprc2&sid=hhSppPj7prpE1ZWeAAAG HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 15:55:34] "GET /socket.io/?EIO=4&transport=polling&t=Ovhprc8&sid=hhSppPj7prpE1ZWeAAAG HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 15:55:34] "GET /socket.io/?EIO=4&transport=polling&t=Ovhprju&sid=hhSppPj7prpE1ZWeAAAG HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 15:55:34] "POST /socket.io/?EIO=4&transport=polling&t=Ovhprjz&sid=hhSppPj7prpE1ZWeAAAG HTTP/1.1" 200 -
+WARNING:root:Removed streaming client ('192.168.53.162', 52518): [Errno 104] Connection reset by peer
+192.168.53.162 - - [23/Mar/2024 16:00:26] "GET /socket.io/?EIO=4&transport=websocket&sid=hhSppPj7prpE1ZWeAAAG HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:00:26] "GET /socket.io/?EIO=4&transport=polling&t=OvhqwYz HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:00:27] "GET /socket.io/?EIO=4&transport=polling&t=Ovhqz4s&sid=f6623T783HrEwF-mAAAI HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:00:27] "POST /socket.io/?EIO=4&transport=polling&t=Ovhqz4d&sid=f6623T783HrEwF-mAAAI HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:00:35] "GET /socket.io/?EIO=4&transport=websocket&sid=f6623T783HrEwF-mAAAI HTTP/1.1" 200 -
+WARNING:root:Removed streaming client ('192.168.53.162', 52550): [Errno 104] Connection reset by peer
+192.168.53.162 - - [23/Mar/2024 16:00:47] "GET /socket.io/?EIO=4&transport=polling&t=Ovhr20O HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:00:47] "GET /stream.mjpg HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:00:48] "POST /socket.io/?EIO=4&transport=polling&t=Ovhr2DO&sid=Gpaf2zoBIXBI6QYlAAAK HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:00:48] "GET /socket.io/?EIO=4&transport=polling&t=Ovhr2DS&sid=Gpaf2zoBIXBI6QYlAAAK HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:06:27] "GET /stream.mjpg HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:06:27] "GET /socket.io/?EIO=4&transport=polling&t=OvhsL5B HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:06:28] "POST /socket.io/?EIO=4&transport=polling&t=OvhsLJk&sid=osZb4XiecDtJDSNQAAAM HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:06:28] "GET /socket.io/?EIO=4&transport=polling&t=OvhsLJt&sid=osZb4XiecDtJDSNQAAAM HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:07:54] "GET /socket.io/?EIO=4&transport=websocket&sid=osZb4XiecDtJDSNQAAAM HTTP/1.1" 200 -
+WARNING:root:Removed streaming client ('192.168.53.162', 52698): [Errno 104] Connection reset by peer
+192.168.53.162 - - [23/Mar/2024 16:07:57] "GET /socket.io/?EIO=4&transport=polling&t=OvhsbKS HTTP/1.1" 200 -
+WARNING:root:Removed streaming client ('192.168.53.162', 52594): [Errno 104] Connection reset by peer
+192.168.53.162 - - [23/Mar/2024 16:08:31] "GET /stream.mjpg HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:08:32] "GET /socket.io/?EIO=4&transport=polling&t=OvhspEp HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:08:32] "GET /socket.io/?EIO=4&transport=polling&t=Ovhspbt&sid=-Y75LuV9fl4KrVcwAAAP HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:08:32] "POST /socket.io/?EIO=4&transport=polling&t=Ovhspbj&sid=-Y75LuV9fl4KrVcwAAAP HTTP/1.1" 200 -
+WARNING:root:Removed streaming client ('192.168.53.162', 52766): [Errno 104] Connection reset by peer
+192.168.53.162 - - [23/Mar/2024 16:08:40] "GET /socket.io/?EIO=4&transport=websocket&sid=-Y75LuV9fl4KrVcwAAAP HTTP/1.1" 200 -
+Process 'main.py' is not running.
+Process 'camera.py' is not running.
+Process 'npm run dev' is not running.
+Starting main.py
+Exception ignored in: <module 'threading' from '/usr/lib/python3.9/threading.py'>
+Traceback (most recent call last):
+  File "/usr/lib/python3.9/threading.py", line 1428, in _shutdown
+    lock.acquire()
+  File "/home/pi/Katamaran/Server/main.py", line 12, in <lambda>
+    signal.signal(signal.SIGTERM, lambda *args: sys.exit(0))
+NameError: name 'sys' is not defined
+error: cannot pull with rebase: You have unstaged changes.
+error: please commit or stash them.
+2024-03-23 16:08:46 initInitialise: Can't lock /var/run/pigpio.pid
+Can't initialise pigpio library
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+Loading PiGPIO daemon
+Starting network endpoint
+Importing edev.py
+Importing motors.py
+Importing servo.py
+Importing pos.py
+Starting camera endpoint
+ * Serving Flask app 'net'
+Starting frontend server
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.53.110:5000
+[33mPress CTRL+C to quit[0m
+192.168.53.162 - - [23/Mar/2024 16:08:58] "GET /socket.io/?EIO=4&transport=polling&t=Ovhsv_b HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:08:58] "GET /socket.io/?EIO=4&transport=polling&t=Ovhsw3d&sid=3JdTsPuIw_l7iizcAAAA HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:08:58] "POST /socket.io/?EIO=4&transport=polling&t=Ovhsw3V&sid=3JdTsPuIw_l7iizcAAAA HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:08:58] "GET /socket.io/?EIO=4&transport=polling&t=Ovhsw4x&sid=3JdTsPuIw_l7iizcAAAA HTTP/1.1" 200 -
+
+> katamaran-frontend@0.0.0 dev
+> vite --host
+
+Port 5173 is in use, trying another one...
+
+  VITE v5.1.6  ready in 1833 ms
+
+  ➜  Local:   http://localhost:5174/
+  ➜  Network: http://192.168.53.110:5174/
+192.168.53.162 - - [23/Mar/2024 16:09:02] "GET /socket.io/?EIO=4&transport=websocket&sid=3JdTsPuIw_l7iizcAAAA HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:09:02] "GET /socket.io/?EIO=4&transport=polling&t=Ovhsx6t HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:09:03] "GET /stream.mjpg HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:09:03] "POST /socket.io/?EIO=4&transport=polling&t=OvhsxF6&sid=YCRMuuNUjeELoglzAAAC HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:09:03] "GET /socket.io/?EIO=4&transport=polling&t=OvhsxF9&sid=YCRMuuNUjeELoglzAAAC HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:10:39] "GET /socket.io/?EIO=4&transport=polling&t=OvhtGzj HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:10:40] "POST /socket.io/?EIO=4&transport=polling&t=OvhtIpz&sid=fgvvYMGdZu8yKmh4AAAE HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:10:40] "GET /socket.io/?EIO=4&transport=polling&t=OvhtIqG&sid=fgvvYMGdZu8yKmh4AAAE HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:10:43] "GET /socket.io/?EIO=4&transport=websocket&sid=fgvvYMGdZu8yKmh4AAAE HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:10:47] "GET /socket.io/?EIO=4&transport=polling&t=OvhtKXY HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:10:47] "GET /stream.mjpg HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:10:48] "GET /socket.io/?EIO=4&transport=polling&t=OvhtKhn&sid=M1OUakZ3jKkTHs3kAAAG HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:10:48] "POST /socket.io/?EIO=4&transport=polling&t=OvhtKhk&sid=M1OUakZ3jKkTHs3kAAAG HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:10:48] "GET /socket.io/?EIO=4&transport=polling&t=OvhtKt8&sid=M1OUakZ3jKkTHs3kAAAG HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:10:48] "GET /socket.io/?EIO=4&transport=polling&t=OvhtKtg&sid=M1OUakZ3jKkTHs3kAAAG HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:10:56] "GET /socket.io/?EIO=4&transport=websocket&sid=YCRMuuNUjeELoglzAAAC HTTP/1.1" 200 -
+WARNING:root:Removed streaming client ('192.168.53.162', 52804): [Errno 104] Connection reset by peer
+192.168.53.162 - - [23/Mar/2024 16:14:08] "GET /socket.io/?EIO=4&transport=polling&t=Ovhu5a1 HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:14:08] "GET /stream.mjpg HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:14:08] "POST /socket.io/?EIO=4&transport=polling&t=Ovhu5lk&sid=69m6592PFnBzjyayAAAI HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:14:08] "GET /socket.io/?EIO=4&transport=polling&t=Ovhu5lt&sid=69m6592PFnBzjyayAAAI HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:14:09] "GET /socket.io/?EIO=4&transport=polling&t=Ovhu5vT&sid=69m6592PFnBzjyayAAAI HTTP/1.1" 200 -
+192.168.53.162 - - [23/Mar/2024 16:14:09] "POST /socket.io/?EIO=4&transport=polling&t=Ovhu5vZ&sid=69m6592PFnBzjyayAAAI HTTP/1.1" 200 -

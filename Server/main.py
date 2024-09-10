@@ -2,6 +2,7 @@ import subprocess
 import os
 import threading
 import signal
+#import net
 print("Loading PiGPIO daemon")
 try:
     os.system("sudo pigpiod")
@@ -10,10 +11,15 @@ except Exception as e:
 print("Starting network endpoint")
 try:
     signal.signal(signal.SIGTERM, lambda *args: sys.exit(0))
+    print("1")
     import net
+    print("2")
     net_thread = threading.Thread(target=net.run)
+    print("3")
     net_thread.start()
+    print("4")
 except Exception as e:
+    #print("Failed to start network endpoint with error: " + e)
     print(e)
 print("Starting camera endpoint")
 try:
