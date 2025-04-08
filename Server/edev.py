@@ -42,6 +42,9 @@ front_pwm = gp.PWM(fr, 100)         # 100 Hz frequency
 steuerboard_pwm.start(0)  # Start with duty cycle 0 (LED off)
 front_pwm.start(0)        # Start with duty cycle 0 (LED off)
 
+# turn off sc
+gp.output(sc, True)
+
 def backboard(on: bool):
     if on:
         gp.output(ba, True)
