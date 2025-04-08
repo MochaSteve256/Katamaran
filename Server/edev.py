@@ -78,7 +78,7 @@ def connection(on: bool):
         constatus = 0
 
 def scheinwerfer(on: bool):
-    if on:
+    if not on:
         gp.output(sc, True)
     else:
         gp.output(sc, False)
