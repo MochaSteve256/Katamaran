@@ -1,0 +1,5 @@
+__pycache__/**
+Server/Frontend/node_modules/**
+Server/Frontend/package-lock.json
+**.egg
+**.pyc
