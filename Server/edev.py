@@ -134,5 +134,10 @@ def ultra(timeout=MAX_TIMEOUT):
 
 if __name__ == "__main__":
     while True:
-        print(round(ultra(), 2), " cm             ", end="\r")
+        dist = ultra()
+        if dist is not None:
+            dist = round(dist, 2)
+        else:
+            dist = 400
+        print(dist, " cm             ", end="\r")
         time.sleep(0.1)
