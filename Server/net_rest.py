@@ -12,7 +12,7 @@ import motors
 print("Importing servo.py")
 import servo
 print("Importing pos.py")
-import pos
+#import pos
 
 running = False
 
@@ -122,11 +122,20 @@ def status():
 
 @app.route('/telemetry', methods=['GET'])
 def telemetry():
+    dist = edev.ultra()
+    if dist is not None:
+        dist = edev.ultra()
+    else:
+        dist = 400
     result = {
-        "ultrasonic": round(edev.ultra() / 100, 2),
+        "ultrasonic": round(dist / 100, 2),
         "gyro": {}
     }
-    x, y, z = pos.get_gyro()
+    x, y, z = None, None, None
+    try:
+        x, y, z = pos.get_gyro()
+    except:
+        print("error getting pos")
     if x is not None and y is not None and z is not None:
         result["gyro"] = {"x": x, "y": y, "z": z}
     return jsonify(result)
