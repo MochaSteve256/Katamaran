@@ -43,10 +43,10 @@ def background_thread():
         #ultrasonic distance float
         dist = edev.ultra()
         if dist is not None:
-            dist = edev.ultra()
+            dist = round(dist, 2)
         else:
             dist = 400
-        socketio.emit('ultrasonic_data', {'distance': round(dist / 100, 2)})
+        socketio.emit('ultrasonic_data', {'distance': dist})
         #gps lat, lng, alt, spd float
         #wifi strength int
         #gyro x, y, z float
