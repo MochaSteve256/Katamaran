@@ -1,4 +1,4 @@
-from asyncio.proactor_events import constants
+#from asyncio.proactor_events import constants
 import RPi.GPIO as gp
 gp.setwarnings(False)
 import time
@@ -98,32 +98,39 @@ def lights(on: bool):
         steuerboard(False)
         front(False)
 
-def ultra():
-    # set Trigger to HIGH
-    gp.output(tr, True)
+# Pre-calculate the maximum wait time (for 4 m out‑and‑back at 343 m/s)
+MAX_DISTANCE_CM = 400
+SPEED_OF_SOUND_CM_S = 34300
+MAX_TIMEOUT = (MAX_DISTANCE_CM * 2) / SPEED_OF_SOUND_CM_S  # ≈0.0233 s
 
-    # set Trigger after 0.01ms to LOW
+def ultra(timeout=MAX_TIMEOUT):
+    # send 10 µs trigger pulse
+    gp.output(tr, True)
     time.sleep(0.00001)
     gp.output(tr, False)
 
-    StartTime = time.time()
-    StopTime = time.time()
-
-    # save StartTime
+    # wait for echo to go high
+    start_time = time.time()
+    timeout_start = start_time
     while gp.input(ec) == 0:
-        StartTime = time.time()
+        start_time = time.time()
+        if start_time - timeout_start > timeout:
+            # no echo received in time
+            return None
 
-    # save time of arrival
+    # wait for echo to go low
+    stop_time = time.time()
+    timeout_start = stop_time
     while gp.input(ec) == 1:
-        StopTime = time.time()
+        stop_time = time.time()
+        if stop_time - timeout_start > timeout:
+            # echo never ended in time
+            return None
 
-    # time difference between start and arrival
-    TimeElapsed = StopTime - StartTime
-    # multiply with the sonic speed (34300 cm/s)
-    # and divide by 2, because there and back
-    distance = (TimeElapsed * 34300) / 2
-
-    return distance
+    # calculate distance
+    elapsed = stop_time - start_time
+    distance_cm = (elapsed * SPEED_OF_SOUND_CM_S) / 2
+    return distance_cm
 
 if __name__ == "__main__":
     while True:

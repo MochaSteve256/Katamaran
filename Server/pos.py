@@ -9,9 +9,7 @@ sensor = py_qmc5883l.QMC5883L()
 print("QMC initialized")
 time.sleep(1)
 def get_gyro():
-    print("1")
     x_raw, y_raw, z_raw = sensor.get_magnet_raw()
-    print("2")
     if x_raw is None or y_raw is None or z_raw is None:
         return None, None, None
 
