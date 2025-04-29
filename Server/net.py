@@ -54,7 +54,7 @@ def background_thread():
         if x_v is not None and y_v is not None and z_v is not None:
             socketio.emit("gyro_data", {"x": x_v, "y": y_v, "z": z_v})
             print("x: " + str(x_v) +  "   y: " + str(y_v) + "   z: " + str(z_v) + "       ")
-        time.sleep(.3)
+        time.sleep(.01)
 
 spotlight_on = False
 lMotor_speed = 0

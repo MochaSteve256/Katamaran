@@ -2,13 +2,13 @@ import subprocess
 import os
 import threading
 import signal
-#import net
-print("Loading PiGPIO daemon")
 try:
     os.system("sudo pigpiod")
 except Exception as e:
     print(e)
 print("Starting network endpoint")
+print("Loading PiGPIO daemon")
+import net
 try:
     signal.signal(signal.SIGTERM, lambda *args: sys.exit(0))
     print("1")
